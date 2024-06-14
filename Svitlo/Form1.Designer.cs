@@ -127,6 +127,7 @@
             readHouse.Name = "readHouse";
             readHouse.Size = new Size(137, 23);
             readHouse.TabIndex = 8;
+            readHouse.SelectedIndexChanged += readHouse_SelectedIndexChanged;
             readHouse.TextChanged += readHouse_TextChanged;
             // 
             // errorProvider1
