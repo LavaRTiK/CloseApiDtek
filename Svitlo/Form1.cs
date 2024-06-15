@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 
 namespace Svitlo
 {
@@ -165,11 +166,36 @@ namespace Svitlo
             };
 
             var data = new FormUrlEncodedContent(values);
-            HttpClient client= new HttpClient();
+            HttpClient client = new HttpClient();
             using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax",data);
             reponse.EnsureSuccessStatusCode();
-            var content = await reponse.Content.ReadAsStringAsync();
+            var content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
             richTextBox1.Text = content.ToString();
+            var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            htmlDocument.LoadHtml(content[2].data.ToString());
+
+            var messageNode = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='disconnection-detailed-table-message']");
+            if (messageNode != null)
+            {
+                richTextBox2.Text += ("\nMessage about disconnections:");
+                richTextBox2.Text += $"\n{(messageNode.InnerText.Trim())}";
+                //Console.WriteLine();
+            }
+
+            var tableNode = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='disconnection-detailed-table-container']");
+            if (tableNode != null)
+            {
+                richTextBox2.Text +=("\n Disconnection schedule:");
+                var rows = tableNode.SelectNodes(".//div[@class='disconnection-detailed-table-cell']");
+                if (rows != null)
+                {
+                    foreach (var row in rows)
+                    {
+                        richTextBox2.Text += $"\n{(row.InnerText.Trim())}";
+                    }
+                }
+            }
+            MessageBox.Show("ля отработал");
 
         }
 

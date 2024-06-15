@@ -42,6 +42,7 @@
             errorProvider1 = new ErrorProvider(components);
             button2 = new Button();
             label1 = new Label();
+            richTextBox2 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
@@ -59,9 +60,9 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(111, 180);
+            richTextBox1.Location = new Point(12, 143);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(449, 135);
+            richTextBox1.Size = new Size(449, 224);
             richTextBox1.TabIndex = 2;
             richTextBox1.Text = "";
             // 
@@ -153,11 +154,20 @@
             label1.TabIndex = 10;
             label1.Text = "label1";
             // 
+            // richTextBox2
+            // 
+            richTextBox2.Location = new Point(476, 140);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.Size = new Size(301, 227);
+            richTextBox2.TabIndex = 11;
+            richTextBox2.Text = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(richTextBox2);
             Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(readHouse);
@@ -191,5 +201,6 @@
         private ErrorProvider errorProvider1;
         private Label label1;
         private Button button2;
+        private RichTextBox richTextBox2;
     }
 }
