@@ -167,7 +167,7 @@ namespace Svitlo
 
             var data = new FormUrlEncodedContent(values);
             HttpClient client = new HttpClient();
-            using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax",data);
+            using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax", data);
             reponse.EnsureSuccessStatusCode();
             var content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
             richTextBox1.Text = content.ToString();
@@ -182,19 +182,34 @@ namespace Svitlo
                 //Console.WriteLine();
             }
 
-            var tableNode = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='disconnection-detailed-table-container']");
-            if (tableNode != null)
+            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day']");
+            if (tableNode == null)
             {
-                richTextBox2.Text +=("\n Disconnection schedule:");
-                var rows = tableNode.SelectNodes(".//div[@class='disconnection-detailed-table-cell']");
-                if (rows != null)
-                {
-                    foreach (var row in rows)
-                    {
-                        richTextBox2.Text += $"\n{(row.InnerText.Trim())}";
-                    }
-                }
+                richTextBox2.Text += "\nTable node not found.";
+                return;
             }
+            else
+            {
+                richTextBox2.Text += "\nTable node found.";
+            }
+            TimeOnly time = new TimeOnly(00,00);
+            for (int i = 0; i < tableNode.Count; i++)
+            {
+                if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day") {
+                    dataGridView1.Rows.Add(time.ToString("HH:mm"), "-");
+                }
+                else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
+                {
+                    dataGridView1.Rows.Add(time.ToString("HH:mm"), "+");
+                }
+                else
+                {
+                    dataGridView1.Rows.Add(time.ToString("HH:mm"), "+-");
+                }
+                time = time.AddHours(1);
+            }
+            //Свойсто contains не строгое и ищет клас даже если в его под строке ище есть какой-то клас
+            //var rows = tableNode.SelectNodes(".//div[contains(@class, 'disconnection-detailed-table-cell')]");
             MessageBox.Show("ля отработал");
 
         }
@@ -203,6 +218,10 @@ namespace Svitlo
         {
             //label1.Text = $"id={idCity};idstreet={idStreet}idhouse={idHouse}";
             await check();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
         }
     }
 }

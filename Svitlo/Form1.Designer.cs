@@ -43,9 +43,13 @@
             button2 = new Button();
             label1 = new Label();
             richTextBox2 = new RichTextBox();
+            dataGridView1 = new DataGridView();
+            Date = new DataGridViewTextBoxColumn();
+            test = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -162,11 +166,31 @@
             richTextBox2.TabIndex = 11;
             richTextBox2.Text = "";
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
+            dataGridView1.Location = new Point(349, 125);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(439, 271);
+            dataGridView1.TabIndex = 12;
+            // 
+            // Date
+            // 
+            Date.HeaderText = "Date";
+            Date.Name = "Date";
+            // 
+            // test
+            // 
+            test.HeaderText = "test";
+            test.Name = "test";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dataGridView1);
             Controls.Add(richTextBox2);
             Controls.Add(label1);
             Controls.Add(button2);
@@ -180,9 +204,11 @@
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)errorReadCity).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -202,5 +228,8 @@
         private Label label1;
         private Button button2;
         private RichTextBox richTextBox2;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Date;
+        private DataGridViewTextBoxColumn test;
     }
 }
