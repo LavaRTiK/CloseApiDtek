@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Svitlo
+namespace Svitlo.ObjectModels
 {
     public class City
     {
@@ -15,5 +15,5 @@ namespace Svitlo
             return value.ToString();
         }
     }
-    
+
 }

@@ -39,16 +39,20 @@
             errorReadStreet = new ErrorProvider(components);
             labelHouse = new Label();
             readHouse = new ComboBox();
-            errorProvider1 = new ErrorProvider(components);
+            errorReadHouse = new ErrorProvider(components);
             button2 = new Button();
             label1 = new Label();
             richTextBox2 = new RichTextBox();
             dataGridView1 = new DataGridView();
             Date = new DataGridViewTextBoxColumn();
             test = new DataGridViewTextBoxColumn();
+            SaveBuffer = new Label();
+            SaveBufferComboBox = new ComboBox();
+            button3 = new Button();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +68,7 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(12, 143);
+            richTextBox1.Location = new Point(33, 122);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(449, 224);
             richTextBox1.TabIndex = 2;
@@ -101,6 +105,7 @@
             labelStreet.Size = new Size(54, 15);
             labelStreet.TabIndex = 5;
             labelStreet.Text = "Вуллиця";
+            labelStreet.Click += labelStreet_Click;
             // 
             // readStreet
             // 
@@ -135,17 +140,17 @@
             readHouse.SelectedIndexChanged += readHouse_SelectedIndexChanged;
             readHouse.TextChanged += readHouse_TextChanged;
             // 
-            // errorProvider1
+            // errorReadHouse
             // 
-            errorProvider1.ContainerControl = this;
+            errorReadHouse.ContainerControl = this;
             // 
             // button2
             // 
-            button2.Location = new Point(253, 100);
+            button2.Location = new Point(267, 94);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 9;
-            button2.Text = "button2";
+            button2.Text = "По Адресу";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -170,7 +175,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(349, 125);
+            dataGridView1.Location = new Point(215, 123);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(439, 271);
             dataGridView1.TabIndex = 12;
@@ -185,11 +190,46 @@
             test.HeaderText = "test";
             test.Name = "test";
             // 
+            // SaveBuffer
+            // 
+            SaveBuffer.AutoSize = true;
+            SaveBuffer.Location = new Point(653, 20);
+            SaveBuffer.Name = "SaveBuffer";
+            SaveBuffer.Size = new Size(65, 15);
+            SaveBuffer.TabIndex = 13;
+            SaveBuffer.Text = "Збережені";
+            // 
+            // SaveBufferComboBox
+            // 
+            SaveBufferComboBox.FormattingEnabled = true;
+            SaveBufferComboBox.Location = new Point(630, 38);
+            SaveBufferComboBox.Name = "SaveBufferComboBox";
+            SaveBufferComboBox.Size = new Size(121, 23);
+            SaveBufferComboBox.TabIndex = 14;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(643, 67);
+            button3.Name = "button3";
+            button3.Size = new Size(108, 23);
+            button3.TabIndex = 15;
+            button3.Text = "Добавити адресу";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button3);
+            Controls.Add(SaveBufferComboBox);
+            Controls.Add(SaveBuffer);
             Controls.Add(dataGridView1);
             Controls.Add(richTextBox2);
             Controls.Add(label1);
@@ -207,7 +247,7 @@
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)errorReadCity).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).EndInit();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorReadHouse).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -224,12 +264,16 @@
         private ErrorProvider errorReadStreet;
         private ComboBox readHouse;
         private Label labelHouse;
-        private ErrorProvider errorProvider1;
+        private ErrorProvider errorReadHouse;
         private Label label1;
         private Button button2;
         private RichTextBox richTextBox2;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn test;
+        private ComboBox SaveBufferComboBox;
+        private Label SaveBuffer;
+        private Button button3;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }

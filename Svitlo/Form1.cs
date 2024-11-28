@@ -1,6 +1,8 @@
-using System.Net.Http.Json;
+п»їusing System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using Svitlo.Component;
+using Svitlo.ObjectModels;
 
 namespace Svitlo
 {
@@ -13,10 +15,14 @@ namespace Svitlo
         private int idCity = 0;
         private int idStreet = 0;
         private int idHouse = 0;
+        private string? city { get; set; }
+        private string? street { get; set; }
+        private string? house { get; set; }
+        private DataLoderAPI dataLoderAPI = new DataLoderAPI();
         private async void button1_Click(object sender, EventArgs e)
         {
             HttpClient client = new HttpClient();
-            using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_city?q=Він");
+            using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_city?q=Г‚ВіГ­");
             reponse.EnsureSuccessStatusCode();
             var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
             //richTextBox1.Text = content;
@@ -32,12 +38,10 @@ namespace Svitlo
         }
         private async Task SearchCity()
         {
-            if (readCity.Text.Length > 3)
+            if(readCity.Text.Length > 3)
             {
-                HttpClient client = new HttpClient();
-                using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_city?q={readCity.Text}");
-                reponse.EnsureSuccessStatusCode();
-                var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
+                errorReadCity.SetError(this.readCity, "Р’РёРєРѕРЅСѓС”С‚СЊСЃСЏ Р·Р°РїРёС‚");
+                var content = await dataLoderAPI.SearchCityAsync(readCity.Text);
                 if (content != null)
                 {
                     readCity.Items.Clear();
@@ -50,7 +54,7 @@ namespace Svitlo
             }
             else
             {
-                errorReadCity.SetError(this.readCity, "Довжина повина бути більше 3");
+                errorReadCity.SetError(this.readCity, "Р”Р»РёРЅР° С‚РµРєСЃС‚Сѓ Р±РѕР»СЊС€Рµ 3");
             }
         }
 
@@ -66,7 +70,7 @@ namespace Svitlo
         {
             if (idCity == 0)
             {
-                errorReadStreet.SetError(readStreet, "Зповніть місто");
+                errorReadStreet.SetError(readStreet, "Р—Р°РїРѕРІРЅС–С‚СЊ СЃРїРѕС‡Р°С‚РєСѓ РјС–СЃС‚Рѕ");
                 return;
             }
             await SearchStreet();
@@ -76,10 +80,8 @@ namespace Svitlo
         {
             if (readStreet.Text.Length > 3)
             {
-                HttpClient client = new HttpClient();
-                using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_street/{idCity}?q={readStreet.Text}");
-                reponse.EnsureSuccessStatusCode();
-                var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
+                errorReadStreet.SetError(this.readStreet, "Р’РёРєРѕРЅСѓС”С‚СЊСЃСЏ Р·Р°РїРёС‚");
+                var content = await dataLoderAPI.SearchStreetAsync(idCity,readStreet.Text);
                 if (content != null)
                 {
                     readStreet.Items.Clear();
@@ -92,7 +94,7 @@ namespace Svitlo
             }
             else
             {
-                errorReadStreet.SetError(this.readStreet, "Довжина повина бути більше 3");
+                errorReadStreet.SetError(this.readStreet, "Р”Р»РёРЅР° С‚РµРєСЃС‚Сѓ Р±РѕР»СЊС€Рµ 3");
             }
         }
 
@@ -108,19 +110,17 @@ namespace Svitlo
         {
             if (idStreet == 0)
             {
-                errorProvider1.SetError(readHouse, "Зповніть вуллицю");
+                errorReadHouse.SetError(readHouse, "Р—Р°РїРѕРІРЅС–С‚СЊ СЃРїРѕС‡Р°С‚РєСѓ РІСѓР»РёС†СЋ");
                 return;
             }
             await SearchHouse();
         }
         private async Task SearchHouse()
         {
-            if (readHouse.Text.Length > 0)
+            if (readStreet.Text.Length > 3)
             {
-                HttpClient client = new HttpClient();
-                using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_house/{idStreet}?q={readHouse.Text}");
-                reponse.EnsureSuccessStatusCode();
-                var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
+                errorReadHouse.SetError(this.readHouse, "Р’РёРєРѕРЅСѓС”С‚СЊСЃСЏ Р·Р°РїРёС‚");
+                var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
                 if (content != null)
                 {
                     readHouse.Items.Clear();
@@ -128,12 +128,12 @@ namespace Svitlo
                     {
                         readHouse.Items.Add(item);
                     }
-                    errorProvider1.SetError(this.readHouse, String.Empty);
+                    errorReadHouse.SetError(this.readHouse, String.Empty);
                 }
             }
             else
             {
-                errorProvider1.SetError(this.readHouse, "Довжина повина бути більше 3");
+                errorReadHouse.SetError(this.readHouse, "Р”Р»РёРЅР° С‚РµРєСЃС‚Сѓ Р±РѕР»СЊС€Рµ 3");
             }
         }
         private void readHouse_SelectedIndexChanged(object sender, EventArgs e)
@@ -149,12 +149,12 @@ namespace Svitlo
             {
                 { "ajax_form", "1" },
                 { "_wrapper_format", "drupal_ajax" },
-                { "city", "м. Вінниця (Вінницька Область/М.Вінниця)" },
-                { "city_id", "510100000" },
-                { "street", "вулиця В.Порика" },
-                { "street_id", "1147" },
-                { "house", "33" },
-                { "house_id", "48440" },
+                { "city", $"{readCity.Text}" },
+                { "city_id", $"{idCity}" },
+                { "street", $"{readStreet.Text}" },
+                { "street_id", $"{idStreet}" },
+                { "house", $"{readHouse.Text}" },
+                { "house_id", $"{idHouse}" },
                 { "form_build_id", "form-EFDfea_so3Y5mQ-JvwI3zwkyv-5zihfkWDo38QPy3is" },
                 { "form_id", "disconnection_detailed_search_form" },
                 { "_triggering_element_name", "op" },
@@ -192,10 +192,11 @@ namespace Svitlo
             {
                 richTextBox2.Text += "\nTable node found.";
             }
-            TimeOnly time = new TimeOnly(00,00);
+            TimeOnly time = new TimeOnly(00, 00);
             for (int i = 0; i < tableNode.Count; i++)
             {
-                if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day") {
+                if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
+                {
                     dataGridView1.Rows.Add(time.ToString("HH:mm"), "-");
                 }
                 else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
@@ -208,9 +209,9 @@ namespace Svitlo
                 }
                 time = time.AddHours(1);
             }
-            //Свойсто contains не строгое и ищет клас даже если в его под строке ище есть какой-то клас
+            //Г‘ГўГ®Г©Г±ГІГ® contains Г­ГҐ Г±ГІГ°Г®ГЈГ®ГҐ ГЁ ГЁГ№ГҐГІ ГЄГ«Г Г± Г¤Г Г¦ГҐ ГҐГ±Г«ГЁ Гў ГҐГЈГ® ГЇГ®Г¤ Г±ГІГ°Г®ГЄГҐ ГЁГ№ГҐ ГҐГ±ГІГј ГЄГ ГЄГ®Г©-ГІГ® ГЄГ«Г Г±
             //var rows = tableNode.SelectNodes(".//div[contains(@class, 'disconnection-detailed-table-cell')]");
-            MessageBox.Show("ля отработал");
+            MessageBox.Show("Г«Гї Г®ГІГ°Г ГЎГ®ГІГ Г«");
 
         }
 
@@ -222,6 +223,17 @@ namespace Svitlo
 
         private void Form1_Load(object sender, EventArgs e)
         {
+        }
+
+        private void labelStreet_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AddAddress addForm = new AddAddress();
+            addForm.ShowDialog();
         }
     }
 }
