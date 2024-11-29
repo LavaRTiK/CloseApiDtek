@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Svitlo.Component;
+using Svitlo.ObjectModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -14,6 +17,18 @@ namespace Svitlo
     public partial class AddAddress : Form
     {
         private bool isChangeIndexReadCity = false;
+        DataLoderAPI dataLoderAPI = new DataLoderAPI();
+        Regex regex = new Regex(@"[0-9]+");
+        private DataObjResidence dataObjResidence = new DataObjResidence(); 
+        private int idCity = 0;
+        private int idStreet = 0;
+        private int idHouse = 0;
+        private string? city { get; set; }
+        private string? street { get; set; }
+        private string? house { get; set; }
+        private bool[] rule = { false, false, false, false};
+        //rule простий спосіб перевірки валідності {name,city,street,house}
+        //форма намє валідації
         public AddAddress()
         {
             InitializeComponent();
@@ -21,34 +36,171 @@ namespace Svitlo
 
         private void AddAddress_Load(object sender, EventArgs e)
         {
-            readCity.Items.Add("1");
-            readCity.Items.Add("2");
-            readCity.Items.Add("3");
-            readCity.Items.Add("4");
-            readCity.Items.Add("5");
-            readCity.Items.Add("6");
+            button1.Enabled = true;
         }
 
-        private void readCity_TextChanged(object sender, EventArgs e)
+        private async void readCity_TextChanged(object sender, EventArgs e)
         {
-            readCity.BeginUpdate();
-            //запрос 
-            for (int i = 0; i < 3; i++)
+            await SearchCityAsync();
+        }
+        private async Task SearchCityAsync()
+        {
+            if (readCity.Text.Length > 3)
             {
-                readCity.Items.Add(i);
+                errorReadCityComboBox.SetError(this.readCity, "Виконується запит");
+                var content = await dataLoderAPI.SearchCityAsync(readCity.Text);
+                if (content != null)
+                {
+                    readCity.BeginUpdate();
+                    readCity.Items.Clear();
+                    foreach (var item in content)
+                    {
+                        readCity.Items.Add(item);
+                    }
+                    readCity.EndUpdate();
+                    errorReadCityComboBox.SetError(this.readCity, String.Empty);
+                }
             }
-            readCity.EndUpdate();
-            MessageBox.Show("text change");
+            else
+            {
+                errorReadCityComboBox.SetError(this.readCity, "Довжина тексту повина будти більше 3-ох");
+            }
         }
 
         private void readCity_SelectionChangeCommitted(object sender, EventArgs e)
         {
             readCity.TextChanged -= readCity_TextChanged;
-            MessageBox.Show("вызвало " + readCity.SelectedItem);
         }
         private void readCity_SelectedValueChanged(object sender, EventArgs e)
         {
+            City city = (City)readCity.SelectedItem;
+            idCity = Convert.ToInt32(regex.Match(city.label).Value);
+#if DEBUG
+            MessageBox.Show("Вибраний item має айди" + idCity);
+#endif
             readCity.TextChanged += readCity_TextChanged;
+        }
+
+        private async void readStreet_TextChanged(object sender, EventArgs e)
+        {
+            if (idCity == 0)
+            {
+                errorReadStreetComboBox.SetError(readStreet, "Заповніть спочатку місто");
+                return;
+            }
+            await SearchStreetAsync();
+        }
+        private async Task SearchStreetAsync()
+        {
+            if (readStreet.Text.Length > 3)
+            {
+                errorReadStreetComboBox.SetError(this.readStreet, "Виконується запит");
+                var content = await dataLoderAPI.SearchStreetAsync(idCity, readStreet.Text);
+                if (content != null)
+                {
+                    readStreet.BeginUpdate();
+                    readStreet.Items.Clear();
+                    foreach (var item in content)
+                    {
+                        readStreet.Items.Add(item);
+                    }
+                    readStreet.EndUpdate();
+                    errorReadStreetComboBox.SetError(this.readStreet, String.Empty);
+                }
+            }
+            else
+            {
+                errorReadStreetComboBox.SetError(this.readStreet, "Довжина тексту повина будти більше 3-ох");
+            }
+        }
+
+        private void readStreet_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            readStreet.TextChanged -= readStreet_TextChanged;
+        }
+
+        private void readStreet_SelectedValueChanged(object sender, EventArgs e)
+        {
+            City city = (City)readStreet.SelectedItem;
+            idStreet = Convert.ToInt32(regex.Match(city.label).Value);
+#if DEBUG
+            MessageBox.Show("Вибраний item має айди" + idStreet);
+#endif
+            readStreet.TextChanged += readStreet_TextChanged;
+        }
+
+        private async void readHouse_TextChanged(object sender, EventArgs e)
+        {
+            if (idStreet == 0)
+            {
+                errorReadHouseComboBox.SetError(this.readHouse, "заповніть спочатку вулицю");
+            }
+            await SearchHouseAsync();
+        }
+        private async Task SearchHouseAsync()
+        {
+            if (readStreet.Text.Length > 3)
+            {
+                errorReadHouseComboBox.SetError(this.readHouse, "Виконується запит");
+                var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
+                if (content != null)
+                {
+                    readHouse.BeginUpdate();
+                    readHouse.Items.Clear();
+                    foreach (var item in content)
+                    {
+                        readHouse.Items.Add(item);
+                    }
+                    readHouse.EndUpdate();
+                    errorReadHouseComboBox.SetError(this.readHouse, String.Empty);
+                }
+            }
+            else
+            {
+                errorReadHouseComboBox.SetError(this.readHouse, "Довжина тексту повина будти більше 3-ох");
+            }
+        }
+
+        private void readHouse_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            readHouse.TextChanged -= readHouse_TextChanged;
+        }
+
+        private void readHouse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            City city = (City)readHouse.SelectedItem;
+            idHouse = Convert.ToInt32(regex.Match(city.label).Value);
+#if DEBUG
+            MessageBox.Show("Вибраний item має айди" + idHouse);
+#endif
+            readHouse.TextChanged += readHouse_TextChanged;
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            ObjResidence obj = new ObjResidence(textBoxName.Text,idCity,readCity.Text,idStreet,readStreet.Text,idHouse,readHouse.Text);
+            dataObjResidence.Add(obj);
+            await dataObjResidence.LoadData();
+
+
+        }
+        private bool CheakRule()
+        {
+            return true;
+        }
+
+        private void textBoxName_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxName.Text.Length >= 4 && !string.IsNullOrWhiteSpace(textBoxName.Text) && textBoxName.Text.Trim(' ').Length >= 4)
+            {
+                errorName.SetError(this.textBoxName, string.Empty);
+                rule[0] = true;
+            }
+            else
+            {
+                rule[0] = false;
+                errorName.SetError(this.textBoxName, "назва повина містити більше 4 симловів");
+            }
         }
     }
 }

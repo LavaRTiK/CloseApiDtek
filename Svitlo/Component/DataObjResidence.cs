@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Windows.Forms.Design.AxImporter;
 
-namespace Svitlo
+namespace Svitlo.Component
 {
-    internal class DataObjResidence
+    public class DataObjResidence
     {
-        List<SaveObjResidence> saveObjResidences = new List<SaveObjResidence>();
+        private static List<ObjResidence> saveObjResidences = new List<ObjResidence>();
 
         public async Task ReadData()
         {
@@ -22,7 +23,7 @@ namespace Svitlo
             using (StreamReader sr = new StreamReader("save.txt"))
             {
                 string data = await sr.ReadToEndAsync();
-                saveObjResidences = JsonSerializer.Deserialize<List<SaveObjResidence>>(data);
+                saveObjResidences = JsonSerializer.Deserialize<List<ObjResidence>>(data);
             }
         }
         public async Task LoadData()
@@ -34,9 +35,17 @@ namespace Svitlo
             }
             using (StreamWriter sw = new StreamWriter("save.txt"))
             {
-                string data = JsonSerializer.Serialize(saveObjResidences);
+                var options = new JsonSerializerOptions()
+                {
+                    WriteIndented = true,
+                };
+                string data = JsonSerializer.Serialize(saveObjResidences,options);
                 await sw.WriteAsync(data);
             }
         }
+        public void Add(ObjResidence obj)
+        {
+            saveObjResidences.Add(obj);
+        } 
     }
 }

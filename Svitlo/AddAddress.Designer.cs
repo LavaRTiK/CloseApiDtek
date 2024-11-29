@@ -28,16 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             readHouse = new ComboBox();
             labelHouse = new Label();
             readStreet = new ComboBox();
             labelStreet = new Label();
             labelCity = new Label();
             readCity = new ComboBox();
-            textBox1 = new TextBox();
+            textBoxName = new TextBox();
             label1 = new Label();
             label2 = new Label();
             button1 = new Button();
+            errorReadCityComboBox = new ErrorProvider(components);
+            errorReadStreetComboBox = new ErrorProvider(components);
+            errorReadHouseComboBox = new ErrorProvider(components);
+            errorName = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorReadCityComboBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorReadStreetComboBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorReadHouseComboBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorName).BeginInit();
             SuspendLayout();
             // 
             // readHouse
@@ -47,6 +56,9 @@
             readHouse.Name = "readHouse";
             readHouse.Size = new Size(137, 23);
             readHouse.TabIndex = 20;
+            readHouse.SelectedIndexChanged += readHouse_SelectedIndexChanged;
+            readHouse.SelectionChangeCommitted += readHouse_SelectionChangeCommitted;
+            readHouse.TextChanged += readHouse_TextChanged;
             // 
             // labelHouse
             // 
@@ -64,6 +76,9 @@
             readStreet.Name = "readStreet";
             readStreet.Size = new Size(177, 23);
             readStreet.TabIndex = 18;
+            readStreet.SelectionChangeCommitted += readStreet_SelectionChangeCommitted;
+            readStreet.SelectedValueChanged += readStreet_SelectedValueChanged;
+            readStreet.TextChanged += readStreet_TextChanged;
             // 
             // labelStreet
             // 
@@ -94,13 +109,14 @@
             readCity.SelectedValueChanged += readCity_SelectedValueChanged;
             readCity.TextChanged += readCity_TextChanged;
             // 
-            // textBox1
+            // textBoxName
             // 
-            textBox1.Location = new Point(12, 66);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Home";
-            textBox1.Size = new Size(171, 23);
-            textBox1.TabIndex = 21;
+            textBoxName.Location = new Point(12, 66);
+            textBoxName.Name = "textBoxName";
+            textBoxName.PlaceholderText = "Home";
+            textBoxName.Size = new Size(171, 23);
+            textBoxName.TabIndex = 21;
+            textBoxName.TextChanged += textBoxName_TextChanged;
             // 
             // label1
             // 
@@ -128,6 +144,23 @@
             button1.TabIndex = 24;
             button1.Text = "Зберегти";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // errorReadCityComboBox
+            // 
+            errorReadCityComboBox.ContainerControl = this;
+            // 
+            // errorReadStreetComboBox
+            // 
+            errorReadStreetComboBox.ContainerControl = this;
+            // 
+            // errorReadHouseComboBox
+            // 
+            errorReadHouseComboBox.ContainerControl = this;
+            // 
+            // errorName
+            // 
+            errorName.ContainerControl = this;
             // 
             // AddAddress
             // 
@@ -137,7 +170,7 @@
             Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(textBoxName);
             Controls.Add(readHouse);
             Controls.Add(labelHouse);
             Controls.Add(readStreet);
@@ -147,6 +180,10 @@
             Name = "AddAddress";
             Text = "AddAddress";
             Load += AddAddress_Load;
+            ((System.ComponentModel.ISupportInitialize)errorReadCityComboBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorReadStreetComboBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorReadHouseComboBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorName).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -158,9 +195,13 @@
         private Label labelStreet;
         private Label labelCity;
         private ComboBox readCity;
-        private TextBox textBox1;
+        private TextBox textBoxName;
         private Label label1;
         private Label label2;
         private Button button1;
+        private ErrorProvider errorReadCityComboBox;
+        private ErrorProvider errorReadStreetComboBox;
+        private ErrorProvider errorReadHouseComboBox;
+        private ErrorProvider errorName;
     }
 }

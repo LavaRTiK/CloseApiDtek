@@ -41,12 +41,16 @@ namespace Svitlo.Component
                 using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_street/{idCity}?q={data}");
                 reponse.EnsureSuccessStatusCode();
                 var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
+                #if DEBUG
                 MessageBox.Show("запрос SeatchStreetAsync");
+                #endif
                 return content;
             }
             catch (Exception ex)
             {
+                #if DEBUG
                 MessageBox.Show("Помилка спробуте знову статус помилки \n" + ex.Message);
+                #endif
             }
             return null;
         }
@@ -57,12 +61,16 @@ namespace Svitlo.Component
                 using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_house/{idStreet}?q={data}");
                 reponse.EnsureSuccessStatusCode();
                 var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
+                #if DEBUG
                 MessageBox.Show("запрос SearchHouseAsync");
+                #endif
                 return content;
             }
             catch(Exception ex)
             {
+                #if DEBUG
                 MessageBox.Show("Помилка спробуйте знову статус помилки \n" + ex.Message);
+                #endif
             }
             return null;
         }
