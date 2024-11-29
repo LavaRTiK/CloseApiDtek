@@ -38,23 +38,25 @@ namespace Svitlo
         }
         private async Task SearchCity()
         {
-            if(readCity.Text.Length > 3)
+            if (readCity.Text.Length > 3)
             {
                 errorReadCity.SetError(this.readCity, "Виконується запит");
                 var content = await dataLoderAPI.SearchCityAsync(readCity.Text);
                 if (content != null)
                 {
+                    readCity.BeginUpdate();
                     readCity.Items.Clear();
                     foreach (var item in content)
                     {
                         readCity.Items.Add(item);
                     }
+                    readCity.EndUpdate();
                     errorReadCity.SetError(this.readCity, String.Empty);
                 }
             }
             else
             {
-                errorReadCity.SetError(this.readCity, "Длина тексту больше 3");
+                errorReadCity.SetError(this.readCity, "Довжина тексту повина будти більше 3-ох");
             }
         }
 
@@ -94,7 +96,7 @@ namespace Svitlo
             }
             else
             {
-                errorReadStreet.SetError(this.readStreet, "Длина тексту больше 3");
+                errorReadStreet.SetError(this.readStreet, "Довжина тексту повина будти більше 3-ох");
             }
         }
 
@@ -133,7 +135,7 @@ namespace Svitlo
             }
             else
             {
-                errorReadHouse.SetError(this.readHouse, "Длина тексту больше 3");
+                errorReadHouse.SetError(this.readHouse, "Довжина тексту повина будти більше 3-ох");
             }
         }
         private void readHouse_SelectedIndexChanged(object sender, EventArgs e)

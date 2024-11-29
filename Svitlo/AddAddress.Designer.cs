@@ -90,6 +90,9 @@
             readCity.Name = "readCity";
             readCity.Size = new Size(171, 23);
             readCity.TabIndex = 15;
+            readCity.SelectionChangeCommitted += readCity_SelectionChangeCommitted;
+            readCity.SelectedValueChanged += readCity_SelectedValueChanged;
+            readCity.TextChanged += readCity_TextChanged;
             // 
             // textBox1
             // 
@@ -143,6 +146,7 @@
             Controls.Add(readCity);
             Name = "AddAddress";
             Text = "AddAddress";
+            Load += AddAddress_Load;
             ResumeLayout(false);
             PerformLayout();
         }

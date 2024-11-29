@@ -21,12 +21,16 @@ namespace Svitlo.Component
                 using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_city?q={data}");
                 reponse.EnsureSuccessStatusCode();
                 var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
+                #if DEBUG
                 MessageBox.Show("запрос SearchCityAsync");
+                #endif
                 return content;
             }
             catch(Exception ex)
             {
-               MessageBox.Show("Помилка спробуте знову статус помилки \n" + ex.Message);
+                #if DEBUG
+                MessageBox.Show("Виникла помилка \n" + ex.Message);
+                #endif
             }
             return null;
         }
