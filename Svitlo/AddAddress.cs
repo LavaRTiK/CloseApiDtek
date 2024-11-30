@@ -36,7 +36,7 @@ namespace Svitlo
 
         private void AddAddress_Load(object sender, EventArgs e)
         {
-            button1.Enabled = true;
+            button1.Enabled = false;
         }
 
         private async void readCity_TextChanged(object sender, EventArgs e)
@@ -64,6 +64,7 @@ namespace Svitlo
             else
             {
                 errorReadCityComboBox.SetError(this.readCity, "Довжина тексту повина будти більше 3-ох");
+                rule[1] = false; //city
             }
         }
 
@@ -78,7 +79,9 @@ namespace Svitlo
 #if DEBUG
             MessageBox.Show("Вибраний item має айди" + idCity);
 #endif
+            rule[1] = true; //city
             readCity.TextChanged += readCity_TextChanged;
+            CheakRule();
         }
 
         private async void readStreet_TextChanged(object sender, EventArgs e)
@@ -111,6 +114,7 @@ namespace Svitlo
             else
             {
                 errorReadStreetComboBox.SetError(this.readStreet, "Довжина тексту повина будти більше 3-ох");
+                rule[2] = false; //street
             }
         }
 
@@ -126,7 +130,9 @@ namespace Svitlo
 #if DEBUG
             MessageBox.Show("Вибраний item має айди" + idStreet);
 #endif
+            rule[2] = true;
             readStreet.TextChanged += readStreet_TextChanged;
+            CheakRule();
         }
 
         private async void readHouse_TextChanged(object sender, EventArgs e)
@@ -158,6 +164,7 @@ namespace Svitlo
             else
             {
                 errorReadHouseComboBox.SetError(this.readHouse, "Довжина тексту повина будти більше 3-ох");
+                rule[3] = false; //house
             }
         }
 
@@ -173,20 +180,29 @@ namespace Svitlo
 #if DEBUG
             MessageBox.Show("Вибраний item має айди" + idHouse);
 #endif
+            rule[3] = true; //house
             readHouse.TextChanged += readHouse_TextChanged;
+            CheakRule();
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            ObjResidence obj = new ObjResidence(textBoxName.Text,idCity,readCity.Text,idStreet,readStreet.Text,idHouse,readHouse.Text);
+            ObjResidence obj = new ObjResidence(textBoxName.Text, idCity, readCity.Text, idStreet, readStreet.Text, idHouse, readHouse.Text);
             dataObjResidence.Add(obj);
             await dataObjResidence.LoadData();
-
-
+            DialogResult = DialogResult.OK;
         }
-        private bool CheakRule()
+        //Перевірка вимог форми
+        private void CheakRule()
         {
-            return true;
+            if(rule.All(x => x == true))
+            {
+                button1.Enabled = true;
+            }
+            else
+            {
+                button1.Enabled=false;
+            }
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
@@ -194,13 +210,14 @@ namespace Svitlo
             if (textBoxName.Text.Length >= 4 && !string.IsNullOrWhiteSpace(textBoxName.Text) && textBoxName.Text.Trim(' ').Length >= 4)
             {
                 errorName.SetError(this.textBoxName, string.Empty);
-                rule[0] = true;
+                rule[0] = true; //name
             }
             else
             {
-                rule[0] = false;
+                rule[0] = false; //name
                 errorName.SetError(this.textBoxName, "назва повина містити більше 4 симловів");
             }
+            CheakRule();
         }
     }
 }

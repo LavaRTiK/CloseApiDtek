@@ -26,5 +26,9 @@ namespace Svitlo.ObjectModels
             this.idHouse = idHouse;
             this.house = house;
         }
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

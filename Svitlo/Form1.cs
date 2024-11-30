@@ -19,6 +19,21 @@ namespace Svitlo
         private string? street { get; set; }
         private string? house { get; set; }
         private DataLoderAPI dataLoderAPI = new DataLoderAPI();
+
+        private DataObjResidence dataObjResidence = new DataObjResidence();
+        private List<ObjResidence> dataResidencesList;
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            await dataObjResidence.ReadData();
+            dataResidencesList = dataObjResidence.GetAll();
+            if (dataResidencesList != null)
+            {
+                foreach (var item in dataResidencesList)
+                {
+                    SaveBufferComboBox.Items.Add(item);
+                }
+            }
+        }
         private async void button1_Click(object sender, EventArgs e)
         {
             HttpClient client = new HttpClient();
@@ -83,7 +98,7 @@ namespace Svitlo
             if (readStreet.Text.Length > 3)
             {
                 errorReadStreet.SetError(this.readStreet, "Виконується запит");
-                var content = await dataLoderAPI.SearchStreetAsync(idCity,readStreet.Text);
+                var content = await dataLoderAPI.SearchStreetAsync(idCity, readStreet.Text);
                 if (content != null)
                 {
                     readStreet.Items.Clear();
@@ -222,20 +237,45 @@ namespace Svitlo
             //label1.Text = $"id={idCity};idstreet={idStreet}idhouse={idHouse}";
             await check();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
         private void labelStreet_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
             AddAddress addForm = new AddAddress();
-            addForm.ShowDialog();
+            if (addForm.ShowDialog() == DialogResult.OK)
+            {
+                await dataObjResidence.ReadData();
+                dataResidencesList = dataObjResidence.GetAll();
+                foreach (var item in dataResidencesList)
+                {
+                    SaveBufferComboBox.Items.Add(item.name);
+                }
+            }
+            else
+            {
+                //dont update
+            }
+        }
+
+        private void SaveBufferComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ObjResidence data = (ObjResidence)SaveBufferComboBox.SelectedItem;
+            readCity.Enabled = false;
+            readStreet.Enabled = false;
+            readHouse.Enabled = false;
+            readCity.Text = data.city;
+            readStreet.Text = data.street;
+            readHouse.Text = data.house;
+            idCity = data.idCity;
+            idStreet = data.idStreet;
+            idHouse = data.idHouse;
+            //Сделать отписку и подписку text_change для texbox сity street house 
+            //подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем)
+            //добавить кнопку роблокировка формы когда она висит на запросе от save
+            //и все 
         }
     }
 }

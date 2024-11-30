@@ -206,6 +206,7 @@
             SaveBufferComboBox.Name = "SaveBufferComboBox";
             SaveBufferComboBox.Size = new Size(121, 23);
             SaveBufferComboBox.TabIndex = 14;
+            SaveBufferComboBox.SelectedIndexChanged += SaveBufferComboBox_SelectedIndexChanged;
             // 
             // button3
             // 

@@ -46,6 +46,10 @@ namespace Svitlo.Component
         public void Add(ObjResidence obj)
         {
             saveObjResidences.Add(obj);
-        } 
+        }
+        public List<ObjResidence> GetAll()
+        {
+            return saveObjResidences;
+        }
     }
 }
