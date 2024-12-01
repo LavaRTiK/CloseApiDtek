@@ -3,7 +3,14 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Svitlo.Component;
 using Svitlo.ObjectModels;
-
+using Timer = System.Windows.Forms.Timer;
+/*
+  Сделать отписку и подписку text_change для texbox сity street house запрос лишний city 
+  Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
+  добавить кнопку роблокировка формы когда она висит на запросе от save  //ok
+  сделать name в save как индификатор для дальшего поиска указателя // ok
+  сделать форму для удаления адресов 
+ */
 namespace Svitlo
 {
     public partial class Form1 : Form
@@ -15,6 +22,10 @@ namespace Svitlo
         private int idCity = 0;
         private int idStreet = 0;
         private int idHouse = 0;
+        //test
+        private ObjResidence currentItem;
+        private int hoverTime;
+        //test
         private string? city { get; set; }
         private string? street { get; set; }
         private string? house { get; set; }
@@ -47,7 +58,7 @@ namespace Svitlo
             }
         }
 
-        private async void comboBox1_TextChanged(object sender, EventArgs e)
+        private async void readCity_TextChanged(object sender, EventArgs e)
         {
             await SearchCity();
         }
@@ -272,10 +283,62 @@ namespace Svitlo
             idCity = data.idCity;
             idStreet = data.idStreet;
             idHouse = data.idHouse;
-            //Сделать отписку и подписку text_change для texbox сity street house 
-            //подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем)
-            //добавить кнопку роблокировка формы когда она висит на запросе от save
-            //и все 
+            CancelSave.Visible = true;
+        }
+        private void HoverTimer_Tick(object sender, EventArgs e)
+        {
+            var hoveredIndex = SaveBufferComboBox.SelectedIndex;
+            if (hoveredIndex < 0 || hoveredIndex >= SaveBufferComboBox.Items.Count) return;
+
+            ObjResidence hoveredItem = (ObjResidence)SaveBufferComboBox.Items[hoveredIndex];
+
+            if (!hoveredItem.Equals(currentItem))
+            {
+                currentItem = hoveredItem;
+                hoverTime = 0;
+            }
+
+            hoverTime += hoverTimer.Interval;
+
+            if (hoverTime >= 2000)
+            {
+                readCity.Text = currentItem.city;
+                readStreet.Text = currentItem.street;
+                readHouse.Text = currentItem.house;
+                testlabel.Text = $"Selected: {currentItem}";
+                hoverTime = 0;
+            }
+        }
+
+        private void SaveBufferComboBox_DropDown(object sender, EventArgs e)
+        {
+            hoverTimer.Start();
+            readCity.TextChanged -= readCity_TextChanged;
+            readStreet.TextChanged -= readStreet_TextChanged;
+            readHouse.TextChanged -= readHouse_TextChanged;
+        }
+
+        private void SaveBufferComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            readCity.TextChanged += readCity_TextChanged;
+            readStreet.TextChanged += readStreet_TextChanged;
+            readHouse.TextChanged += readHouse_TextChanged;
+            readCity.Text = "";
+            readStreet.Text = "";
+            readHouse.Text = "";
+            hoverTimer.Stop();
+        }
+
+        private void CancelSave_Click(object sender, EventArgs e)
+        {
+            readCity.Text = "";
+            readHouse.Text = "";
+            readStreet.Text = "";
+            readCity.Enabled = true;
+            readStreet.Enabled = true;
+            readHouse.Enabled = true;
+            CancelSave.Visible= false;
+            SaveBufferComboBox.Text = "";
         }
     }
 }

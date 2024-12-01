@@ -50,6 +50,9 @@
             SaveBufferComboBox = new ComboBox();
             button3 = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            testlabel = new Label();
+            hoverTimer = new System.Windows.Forms.Timer(components);
+            CancelSave = new Button();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
@@ -82,7 +85,7 @@
             readCity.Size = new Size(171, 23);
             readCity.TabIndex = 3;
             readCity.SelectedIndexChanged += readCity_SelectedIndexChanged;
-            readCity.TextChanged += comboBox1_TextChanged;
+            readCity.TextChanged += readCity_TextChanged;
             // 
             // labelCity
             // 
@@ -206,7 +209,9 @@
             SaveBufferComboBox.Name = "SaveBufferComboBox";
             SaveBufferComboBox.Size = new Size(121, 23);
             SaveBufferComboBox.TabIndex = 14;
+            SaveBufferComboBox.DropDown += SaveBufferComboBox_DropDown;
             SaveBufferComboBox.SelectedIndexChanged += SaveBufferComboBox_SelectedIndexChanged;
+            SaveBufferComboBox.DropDownClosed += SaveBufferComboBox_DropDownClosed;
             // 
             // button3
             // 
@@ -223,11 +228,36 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // testlabel
+            // 
+            testlabel.AutoSize = true;
+            testlabel.Location = new Point(519, 9);
+            testlabel.Name = "testlabel";
+            testlabel.Size = new Size(38, 15);
+            testlabel.TabIndex = 16;
+            testlabel.Text = "label2";
+            // 
+            // hoverTimer
+            // 
+            hoverTimer.Tick += HoverTimer_Tick;
+            // 
+            // CancelSave
+            // 
+            CancelSave.Location = new Point(756, 38);
+            CancelSave.Name = "CancelSave";
+            CancelSave.Size = new Size(32, 23);
+            CancelSave.TabIndex = 17;
+            CancelSave.Text = "X";
+            CancelSave.UseVisualStyleBackColor = true;
+            CancelSave.Click += CancelSave_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(CancelSave);
+            Controls.Add(testlabel);
             Controls.Add(button3);
             Controls.Add(SaveBufferComboBox);
             Controls.Add(SaveBuffer);
@@ -276,5 +306,8 @@
         private Label SaveBuffer;
         private Button button3;
         private ContextMenuStrip contextMenuStrip1;
+        private Label testlabel;
+        private System.Windows.Forms.Timer hoverTimer;
+        private Button CancelSave;
     }
 }
