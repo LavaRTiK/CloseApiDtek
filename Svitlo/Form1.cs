@@ -5,11 +5,12 @@ using Svitlo.Component;
 using Svitlo.ObjectModels;
 using Timer = System.Windows.Forms.Timer;
 /*
-  Сделать отписку и подписку text_change для texbox сity street house запрос лишний city 
+  Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
   Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
   добавить кнопку роблокировка формы когда она висит на запросе от save  //ok
   сделать name в save как индификатор для дальшего поиска указателя // ok
-  сделать форму для удаления адресов 
+  сделать форму для удаления адресов (доп) найти способ перехвата правой кнопки мышки в combobox списке вызывать ContextStripMenu
+  
  */
 namespace Svitlo
 {
@@ -92,6 +93,7 @@ namespace Svitlo
 
             Regex regex = new Regex(@"[0-9]+");
             idCity = Convert.ToInt32(regex.Match(city.label).Value);
+            readCity.TextChanged += readCity_TextChanged;
         }
 
         private async void readStreet_TextChanged(object sender, EventArgs e)
@@ -132,6 +134,7 @@ namespace Svitlo
 
             Regex regex = new Regex(@"[0-9]+");
             idStreet = Convert.ToInt32(regex.Match(city.label).Value);
+            readStreet.TextChanged += readStreet_TextChanged;
         }
 
         private async void readHouse_TextChanged(object sender, EventArgs e)
@@ -170,7 +173,9 @@ namespace Svitlo
 
             Regex regex = new Regex(@"[0-9]+");
             idHouse = Convert.ToInt32(regex.Match(city.label).Value);
+            readHouse.TextChanged += readHouse_TextChanged;
         }
+
         private async Task check()
         {
             var values = new Dictionary<string, string>
@@ -337,8 +342,27 @@ namespace Svitlo
             readCity.Enabled = true;
             readStreet.Enabled = true;
             readHouse.Enabled = true;
-            CancelSave.Visible= false;
+            CancelSave.Visible = false;
             SaveBufferComboBox.Text = "";
+        }
+
+        private void readCity_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            readCity.TextChanged -= readCity_TextChanged;
+        }
+
+        private void readStreet_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            readStreet.TextChanged -= readStreet_TextChanged;
+        }
+
+        private void readHouse_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            readHouse.TextChanged -= readHouse_TextChanged;
+        }
+
+        private void SaveBufferComboBox_MouseDown(object sender, MouseEventArgs e)
+        {
         }
     }
 }

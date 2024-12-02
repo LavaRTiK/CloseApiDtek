@@ -48,8 +48,10 @@
             test = new DataGridViewTextBoxColumn();
             SaveBuffer = new Label();
             SaveBufferComboBox = new ComboBox();
+            SaveBufferContextMenuStrip = new ContextMenuStrip(components);
+            редагуватиToolStripMenuItem = new ToolStripMenuItem();
+            видалитиToolStripMenuItem = new ToolStripMenuItem();
             button3 = new Button();
-            contextMenuStrip1 = new ContextMenuStrip(components);
             testlabel = new Label();
             hoverTimer = new System.Windows.Forms.Timer(components);
             CancelSave = new Button();
@@ -57,6 +59,7 @@
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SaveBufferContextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -85,6 +88,7 @@
             readCity.Size = new Size(171, 23);
             readCity.TabIndex = 3;
             readCity.SelectedIndexChanged += readCity_SelectedIndexChanged;
+            readCity.SelectionChangeCommitted += readCity_SelectionChangeCommitted;
             readCity.TextChanged += readCity_TextChanged;
             // 
             // labelCity
@@ -118,6 +122,7 @@
             readStreet.Size = new Size(177, 23);
             readStreet.TabIndex = 6;
             readStreet.SelectedIndexChanged += readStreet_SelectedIndexChanged;
+            readStreet.SelectionChangeCommitted += readStreet_SelectionChangeCommitted;
             readStreet.TextChanged += readStreet_TextChanged;
             // 
             // errorReadStreet
@@ -141,6 +146,7 @@
             readHouse.Size = new Size(137, 23);
             readHouse.TabIndex = 8;
             readHouse.SelectedIndexChanged += readHouse_SelectedIndexChanged;
+            readHouse.SelectionChangeCommitted += readHouse_SelectionChangeCommitted;
             readHouse.TextChanged += readHouse_TextChanged;
             // 
             // errorReadHouse
@@ -204,6 +210,7 @@
             // 
             // SaveBufferComboBox
             // 
+            SaveBufferComboBox.ContextMenuStrip = SaveBufferContextMenuStrip;
             SaveBufferComboBox.FormattingEnabled = true;
             SaveBufferComboBox.Location = new Point(630, 38);
             SaveBufferComboBox.Name = "SaveBufferComboBox";
@@ -212,6 +219,29 @@
             SaveBufferComboBox.DropDown += SaveBufferComboBox_DropDown;
             SaveBufferComboBox.SelectedIndexChanged += SaveBufferComboBox_SelectedIndexChanged;
             SaveBufferComboBox.DropDownClosed += SaveBufferComboBox_DropDownClosed;
+            // 
+            // SaveBufferContextMenuStrip
+            // 
+            SaveBufferContextMenuStrip.AllowMerge = false;
+            SaveBufferContextMenuStrip.AutoClose = false;
+            SaveBufferContextMenuStrip.DropShadowEnabled = false;
+            SaveBufferContextMenuStrip.Items.AddRange(new ToolStripItem[] { редагуватиToolStripMenuItem, видалитиToolStripMenuItem });
+            SaveBufferContextMenuStrip.Name = "contextMenuStrip2";
+            SaveBufferContextMenuStrip.Size = new Size(135, 48);
+            // 
+            // редагуватиToolStripMenuItem
+            // 
+            редагуватиToolStripMenuItem.Enabled = false;
+            редагуватиToolStripMenuItem.Name = "редагуватиToolStripMenuItem";
+            редагуватиToolStripMenuItem.Size = new Size(134, 22);
+            редагуватиToolStripMenuItem.Text = "Редагувати";
+            редагуватиToolStripMenuItem.TextImageRelation = TextImageRelation.TextBeforeImage;
+            // 
+            // видалитиToolStripMenuItem
+            // 
+            видалитиToolStripMenuItem.Name = "видалитиToolStripMenuItem";
+            видалитиToolStripMenuItem.Size = new Size(134, 22);
+            видалитиToolStripMenuItem.Text = "Видалити";
             // 
             // button3
             // 
@@ -222,11 +252,6 @@
             button3.Text = "Добавити адресу";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // testlabel
             // 
@@ -280,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            SaveBufferContextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -305,9 +331,11 @@
         private ComboBox SaveBufferComboBox;
         private Label SaveBuffer;
         private Button button3;
-        private ContextMenuStrip contextMenuStrip1;
         private Label testlabel;
         private System.Windows.Forms.Timer hoverTimer;
         private Button CancelSave;
+        private ContextMenuStrip SaveBufferContextMenuStrip;
+        private ToolStripMenuItem редагуватиToolStripMenuItem;
+        private ToolStripMenuItem видалитиToolStripMenuItem;
     }
 }

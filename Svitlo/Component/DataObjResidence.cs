@@ -43,6 +43,10 @@ namespace Svitlo.Component
                 await sw.WriteAsync(data);
             }
         }
+        public void Remove(string name)
+        {
+
+        }
         public void Add(ObjResidence obj)
         {
             saveObjResidences.Add(obj);
