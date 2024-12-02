@@ -8,9 +8,11 @@ using Timer = System.Windows.Forms.Timer;
   Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
   Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
   добавить кнопку роблокировка формы когда она висит на запросе от save  //ok
-  сделать name в save как индификатор для дальшего поиска указателя // ok
-  сделать форму для удаления адресов (доп) найти способ перехвата правой кнопки мышки в combobox списке вызывать ContextStripMenu
-  
+  сделать name в save как индификатор для дальшего поиска указателя доделать в Address совпадения по имени 
+  сделать форму для удаления адресов (доп) найти способ перехвата правой кнопки мышки в combobox списке вызывать ContextStripMenu //не возможно простым путем 
+  сделать delete
+  посмотреть как сделать trail app / реализвовать увидомления windows если это возможно
+  перенести в dataloader cheak
  */
 namespace Svitlo
 {
@@ -359,10 +361,6 @@ namespace Svitlo
         private void readHouse_SelectionChangeCommitted(object sender, EventArgs e)
         {
             readHouse.TextChanged -= readHouse_TextChanged;
-        }
-
-        private void SaveBufferComboBox_MouseDown(object sender, MouseEventArgs e)
-        {
         }
     }
 }
