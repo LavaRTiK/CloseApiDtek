@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Windows;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Svitlo.Component;
@@ -8,9 +9,9 @@ using Timer = System.Windows.Forms.Timer;
   Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
   Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
   добавить кнопку роблокировка формы когда она висит на запросе от save  //ok
-  сделать name в save как индификатор для дальшего поиска указателя доделать в Address совпадения по имени 
+  сделать name в save как индификатор для дальшего поиска указателя доделать в Address совпадения по имени //ok
   сделать форму для удаления адресов (доп) найти способ перехвата правой кнопки мышки в combobox списке вызывать ContextStripMenu //не возможно простым путем 
-  сделать delete
+  сделать delete //ok 
   посмотреть как сделать trail app / реализвовать увидомления windows если это возможно
   перенести в dataloader cheak
  */
@@ -38,15 +39,8 @@ namespace Svitlo
         private List<ObjResidence> dataResidencesList;
         private async void Form1_Load(object sender, EventArgs e)
         {
-            await dataObjResidence.ReadData();
-            dataResidencesList = dataObjResidence.GetAll();
-            if (dataResidencesList != null)
-            {
-                foreach (var item in dataResidencesList)
-                {
-                    SaveBufferComboBox.Items.Add(item);
-                }
-            }
+            CancelSave.Visible = false;
+            await SaveBufferComboBoxUpdate();
         }
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -150,7 +144,7 @@ namespace Svitlo
         }
         private async Task SearchHouse()
         {
-            if (readStreet.Text.Length > 3)
+            if (readHouse.Text.Length > 3)
             {
                 errorReadHouse.SetError(this.readHouse, "Виконується запит");
                 var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
@@ -265,12 +259,7 @@ namespace Svitlo
             AddAddress addForm = new AddAddress();
             if (addForm.ShowDialog() == DialogResult.OK)
             {
-                await dataObjResidence.ReadData();
-                dataResidencesList = dataObjResidence.GetAll();
-                foreach (var item in dataResidencesList)
-                {
-                    SaveBufferComboBox.Items.Add(item.name);
-                }
+                await SaveBufferComboBoxUpdate();
             }
             else
             {
@@ -280,17 +269,26 @@ namespace Svitlo
 
         private void SaveBufferComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            readCity.TextChanged -= readCity_TextChanged;
+            readStreet.TextChanged -= readStreet_TextChanged;
+            readHouse.TextChanged -= readHouse_TextChanged;
             ObjResidence data = (ObjResidence)SaveBufferComboBox.SelectedItem;
-            readCity.Enabled = false;
-            readStreet.Enabled = false;
-            readHouse.Enabled = false;
-            readCity.Text = data.city;
-            readStreet.Text = data.street;
-            readHouse.Text = data.house;
-            idCity = data.idCity;
-            idStreet = data.idStreet;
-            idHouse = data.idHouse;
-            CancelSave.Visible = true;
+            if (data != null)
+            {
+                readCity.Enabled = false;
+                readStreet.Enabled = false;
+                readHouse.Enabled = false;
+                readCity.Text = data.city;
+                readStreet.Text = data.street;
+                readHouse.Text = data.house;
+                idCity = data.idCity;
+                idStreet = data.idStreet;
+                idHouse = data.idHouse;
+                CancelSave.Visible = true;
+            }
+            readCity.TextChanged += readCity_TextChanged;
+            readStreet.TextChanged += readStreet_TextChanged;
+            readHouse.TextChanged += readHouse_TextChanged;
         }
         private void HoverTimer_Tick(object sender, EventArgs e)
         {
@@ -327,20 +325,20 @@ namespace Svitlo
 
         private void SaveBufferComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            readCity.TextChanged += readCity_TextChanged;
-            readStreet.TextChanged += readStreet_TextChanged;
-            readHouse.TextChanged += readHouse_TextChanged;
             readCity.Text = "";
             readStreet.Text = "";
             readHouse.Text = "";
+            readCity.TextChanged += readCity_TextChanged;
+            readStreet.TextChanged += readStreet_TextChanged;
+            readHouse.TextChanged += readHouse_TextChanged;
             hoverTimer.Stop();
         }
 
         private void CancelSave_Click(object sender, EventArgs e)
         {
             readCity.Text = "";
-            readHouse.Text = "";
             readStreet.Text = "";
+            readHouse.Text = "";
             readCity.Enabled = true;
             readStreet.Enabled = true;
             readHouse.Enabled = true;
@@ -361,6 +359,43 @@ namespace Svitlo
         private void readHouse_SelectionChangeCommitted(object sender, EventArgs e)
         {
             readHouse.TextChanged -= readHouse_TextChanged;
+        }
+
+        private async void SaveBufferComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                var data = (ObjResidence)SaveBufferComboBox.Items[SaveBufferComboBox.SelectedIndex];
+                if (data != null)
+                {
+                    string message = $"Видалити:{data.name}?";
+                    string caption = "Видалення";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    MessageBoxIcon icon = MessageBoxIcon.Warning;
+                    DialogResult result = MessageBox.Show(message, caption, buttons, icon);
+                    if (result == DialogResult.Yes)
+                    {
+                        dataObjResidence.Remove(data);
+                        await dataObjResidence.LoadData();
+                        await SaveBufferComboBoxUpdate();
+                    }
+                }
+            }
+        }
+        private async Task SaveBufferComboBoxUpdate()
+        {
+            SaveBufferComboBox.Items.Clear();
+            await dataObjResidence.ReadData();
+            dataResidencesList = dataObjResidence.GetAll();
+            if (dataResidencesList != null)
+            {
+                SaveBufferComboBox.BeginUpdate();
+                foreach (var item in dataResidencesList)
+                {
+                    SaveBufferComboBox.Items.Add(item);
+                }
+                SaveBufferComboBox.EndUpdate();
+            }
         }
     }
 }

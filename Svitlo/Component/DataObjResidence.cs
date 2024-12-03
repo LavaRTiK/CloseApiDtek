@@ -43,9 +43,9 @@ namespace Svitlo.Component
                 await sw.WriteAsync(data);
             }
         }
-        public void Remove(string name)
+        public void Remove(ObjResidence obj)
         {
-
+            saveObjResidences.Remove(obj);
         }
         public void Add(ObjResidence obj)
         {

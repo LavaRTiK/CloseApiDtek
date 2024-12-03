@@ -34,7 +34,7 @@ namespace Svitlo
             InitializeComponent();
         }
 
-        private void AddAddress_Load(object sender, EventArgs e)
+        private  void AddAddress_Load(object sender, EventArgs e)
         {
             button1.Enabled = false;
         }
@@ -140,12 +140,13 @@ namespace Svitlo
             if (idStreet == 0)
             {
                 errorReadHouseComboBox.SetError(this.readHouse, "заповніть спочатку вулицю");
+                return;
             }
             await SearchHouseAsync();
         }
         private async Task SearchHouseAsync()
         {
-            if (readStreet.Text.Length > 3)
+            if (readHouse.Text.Length > 1)
             {
                 errorReadHouseComboBox.SetError(this.readHouse, "Виконується запит");
                 var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
@@ -209,8 +210,16 @@ namespace Svitlo
         {
             if (textBoxName.Text.Length >= 4 && !string.IsNullOrWhiteSpace(textBoxName.Text) && textBoxName.Text.Trim(' ').Length >= 4)
             {
-                errorName.SetError(this.textBoxName, string.Empty);
-                rule[0] = true; //name
+                if(dataObjResidence.GetAll().Any(x => x.name == textBoxName.Text))
+                {
+                    errorName.SetError(this.textBoxName, "Назва занята");
+                    rule[0] = false; //name
+                }
+                else
+                {
+                    errorName.SetError(this.textBoxName, string.Empty);
+                    rule[0] = true; //name
+                }
             }
             else
             {

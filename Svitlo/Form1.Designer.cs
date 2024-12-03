@@ -219,6 +219,7 @@
             SaveBufferComboBox.DropDown += SaveBufferComboBox_DropDown;
             SaveBufferComboBox.SelectedIndexChanged += SaveBufferComboBox_SelectedIndexChanged;
             SaveBufferComboBox.DropDownClosed += SaveBufferComboBox_DropDownClosed;
+            SaveBufferComboBox.KeyDown += SaveBufferComboBox_KeyDown;
             // 
             // SaveBufferContextMenuStrip
             // 
