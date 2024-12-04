@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Svitlo.ObjectModels
 {
-    internal class Test
+    public class Test
     {
         public string data { get; set; }
     }

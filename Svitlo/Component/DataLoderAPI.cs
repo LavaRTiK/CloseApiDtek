@@ -74,7 +74,7 @@ namespace Svitlo.Component
             }
             return null;
         }
-        public async Task<List<Test>> DisconnectDataAsync(string readCity,int idCity,string readStreet,int idStreet,string readHouse,int idHouse)
+        public async Task<List<Test>> RequestDisconnectDataAsync(string readCity,int idCity,string readStreet,int idStreet,string readHouse,int idHouse)
         {
             var values = new Dictionary<string, string>
             {
@@ -100,7 +100,8 @@ namespace Svitlo.Component
             HttpClient client = new HttpClient();
             using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax", data);
             reponse.EnsureSuccessStatusCode();
-            var content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
+            List<Test> content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
+            return content;
         }
     }
 }

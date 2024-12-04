@@ -42,7 +42,6 @@ namespace Svitlo
         {
             notifyIcon1.BalloonTipText = "Svitlo звернуто";
             notifyIcon1.Text = "Svitlo";
-
             CancelSave.Visible = false;
             await SaveBufferComboBoxUpdate();
         }
@@ -178,7 +177,7 @@ namespace Svitlo
 
         private async Task check()
         {
-            
+            var content = await dataLoderAPI.RequestDisconnectDataAsync(readCity.Text,idCity,readStreet.Text,idStreet,readHouse.Text,idHouse);
             richTextBox1.Text = content.ToString();
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(content[2].data.ToString());
