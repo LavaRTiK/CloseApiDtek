@@ -12,7 +12,8 @@ using Timer = System.Windows.Forms.Timer;
   сделать name в save как индификатор для дальшего поиска указателя доделать в Address совпадения по имени //ok
   сделать форму для удаления адресов (доп) найти способ перехвата правой кнопки мышки в combobox списке вызывать ContextStripMenu //не возможно простым путем 
   сделать delete //ok 
-  посмотреть как сделать trail app / реализвовать увидомления windows если это возможно
+  посмотреть как сделать trail app / реализвовать увидомления windows если это возможно  (notify icon)   notify - 
+  сделать форму настройки таймер c отключениям света туда добавить увидомления 
   перенести в dataloader cheak
  */
 namespace Svitlo
@@ -39,6 +40,9 @@ namespace Svitlo
         private List<ObjResidence> dataResidencesList;
         private async void Form1_Load(object sender, EventArgs e)
         {
+            notifyIcon1.BalloonTipText = "Svitlo звернуто";
+            notifyIcon1.Text = "Svitlo";
+
             CancelSave.Visible = false;
             await SaveBufferComboBoxUpdate();
         }
@@ -174,31 +178,7 @@ namespace Svitlo
 
         private async Task check()
         {
-            var values = new Dictionary<string, string>
-            {
-                { "ajax_form", "1" },
-                { "_wrapper_format", "drupal_ajax" },
-                { "city", $"{readCity.Text}" },
-                { "city_id", $"{idCity}" },
-                { "street", $"{readStreet.Text}" },
-                { "street_id", $"{idStreet}" },
-                { "house", $"{readHouse.Text}" },
-                { "house_id", $"{idHouse}" },
-                { "form_build_id", "form-EFDfea_so3Y5mQ-JvwI3zwkyv-5zihfkWDo38QPy3is" },
-                { "form_id", "disconnection_detailed_search_form" },
-                { "_triggering_element_name", "op" },
-                { "_triggering_element_value", "Show" },
-                { "_drupal_ajax", "1" },
-                { "ajax_page_state[theme]", "personal" },
-                { "ajax_page_state[theme_token]", "" },
-                { "ajax_page_state[libraries]", "ajax_forms/main,classy/base,classy/messages,core/drupal.autocomplete,core/internal.jquery.form,core/normalize,custom/custom,drupal_noty_messages/drupal_noty_messages,extlink/drupal.extlink,filter/caption,paragraphs/drupal.paragraphs.unpublished,personal/global-styling,personal/sticky,personal/toggle_info,personal/type_navigation_unit,poll/drupal.poll-links,search_block/search_block.styles,styling_form_errors/styling_form_errors,system/base" }
-            };
-
-            var data = new FormUrlEncodedContent(values);
-            HttpClient client = new HttpClient();
-            using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax", data);
-            reponse.EnsureSuccessStatusCode();
-            var content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
+            
             richTextBox1.Text = content.ToString();
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(content[2].data.ToString());
@@ -396,6 +376,35 @@ namespace Svitlo
                 }
                 SaveBufferComboBox.EndUpdate();
             }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            WindowState = FormWindowState.Normal;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                notifyIcon1.ShowBalloonTip(1000);
+            }
+        }
+
+        private void показатиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Show();
+                WindowState = FormWindowState.Normal;
+            }
+        }
+
+        private void закритиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

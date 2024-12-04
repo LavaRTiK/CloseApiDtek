@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             button1 = new Button();
             richTextBox1 = new RichTextBox();
             readCity = new ComboBox();
@@ -55,11 +56,16 @@
             testlabel = new Label();
             hoverTimer = new System.Windows.Forms.Timer(components);
             CancelSave = new Button();
+            notifyIcon1 = new NotifyIcon(components);
+            contextMenuStripNotify = new ContextMenuStrip(components);
+            показатиToolStripMenuItem = new ToolStripMenuItem();
+            закритиToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SaveBufferContextMenuStrip.SuspendLayout();
+            contextMenuStripNotify.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -70,6 +76,7 @@
             button1.TabIndex = 1;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
+            button1.UseWaitCursor = true;
             button1.Click += button1_Click;
             // 
             // richTextBox1
@@ -79,6 +86,7 @@
             richTextBox1.Size = new Size(449, 224);
             richTextBox1.TabIndex = 2;
             richTextBox1.Text = "";
+            richTextBox1.UseWaitCursor = true;
             // 
             // readCity
             // 
@@ -87,6 +95,7 @@
             readCity.Name = "readCity";
             readCity.Size = new Size(171, 23);
             readCity.TabIndex = 3;
+            readCity.UseWaitCursor = true;
             readCity.SelectedIndexChanged += readCity_SelectedIndexChanged;
             readCity.SelectionChangeCommitted += readCity_SelectionChangeCommitted;
             readCity.TextChanged += readCity_TextChanged;
@@ -99,6 +108,7 @@
             labelCity.Size = new Size(39, 15);
             labelCity.TabIndex = 4;
             labelCity.Text = "Місто";
+            labelCity.UseWaitCursor = true;
             // 
             // errorReadCity
             // 
@@ -112,6 +122,7 @@
             labelStreet.Size = new Size(54, 15);
             labelStreet.TabIndex = 5;
             labelStreet.Text = "Вуллиця";
+            labelStreet.UseWaitCursor = true;
             labelStreet.Click += labelStreet_Click;
             // 
             // readStreet
@@ -121,6 +132,7 @@
             readStreet.Name = "readStreet";
             readStreet.Size = new Size(177, 23);
             readStreet.TabIndex = 6;
+            readStreet.UseWaitCursor = true;
             readStreet.SelectedIndexChanged += readStreet_SelectedIndexChanged;
             readStreet.SelectionChangeCommitted += readStreet_SelectionChangeCommitted;
             readStreet.TextChanged += readStreet_TextChanged;
@@ -137,6 +149,7 @@
             labelHouse.Size = new Size(53, 15);
             labelHouse.TabIndex = 7;
             labelHouse.Text = "Будинок";
+            labelHouse.UseWaitCursor = true;
             // 
             // readHouse
             // 
@@ -145,6 +158,7 @@
             readHouse.Name = "readHouse";
             readHouse.Size = new Size(137, 23);
             readHouse.TabIndex = 8;
+            readHouse.UseWaitCursor = true;
             readHouse.SelectedIndexChanged += readHouse_SelectedIndexChanged;
             readHouse.SelectionChangeCommitted += readHouse_SelectionChangeCommitted;
             readHouse.TextChanged += readHouse_TextChanged;
@@ -161,6 +175,7 @@
             button2.TabIndex = 9;
             button2.Text = "По Адресу";
             button2.UseVisualStyleBackColor = true;
+            button2.UseWaitCursor = true;
             button2.Click += button2_Click;
             // 
             // label1
@@ -171,6 +186,7 @@
             label1.Size = new Size(38, 15);
             label1.TabIndex = 10;
             label1.Text = "label1";
+            label1.UseWaitCursor = true;
             // 
             // richTextBox2
             // 
@@ -179,15 +195,17 @@
             richTextBox2.Size = new Size(301, 227);
             richTextBox2.TabIndex = 11;
             richTextBox2.Text = "";
+            richTextBox2.UseWaitCursor = true;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(215, 123);
+            dataGridView1.Location = new Point(227, 138);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(439, 271);
             dataGridView1.TabIndex = 12;
+            dataGridView1.UseWaitCursor = true;
             // 
             // Date
             // 
@@ -207,6 +225,7 @@
             SaveBuffer.Size = new Size(65, 15);
             SaveBuffer.TabIndex = 13;
             SaveBuffer.Text = "Збережені";
+            SaveBuffer.UseWaitCursor = true;
             // 
             // SaveBufferComboBox
             // 
@@ -216,6 +235,7 @@
             SaveBufferComboBox.Name = "SaveBufferComboBox";
             SaveBufferComboBox.Size = new Size(121, 23);
             SaveBufferComboBox.TabIndex = 14;
+            SaveBufferComboBox.UseWaitCursor = true;
             SaveBufferComboBox.DropDown += SaveBufferComboBox_DropDown;
             SaveBufferComboBox.SelectedIndexChanged += SaveBufferComboBox_SelectedIndexChanged;
             SaveBufferComboBox.DropDownClosed += SaveBufferComboBox_DropDownClosed;
@@ -252,16 +272,18 @@
             button3.TabIndex = 15;
             button3.Text = "Добавити адресу";
             button3.UseVisualStyleBackColor = true;
+            button3.UseWaitCursor = true;
             button3.Click += button3_Click;
             // 
             // testlabel
             // 
             testlabel.AutoSize = true;
-            testlabel.Location = new Point(519, 9);
+            testlabel.Location = new Point(653, 5);
             testlabel.Name = "testlabel";
             testlabel.Size = new Size(38, 15);
             testlabel.TabIndex = 16;
             testlabel.Text = "label2";
+            testlabel.UseWaitCursor = true;
             // 
             // hoverTimer
             // 
@@ -275,7 +297,36 @@
             CancelSave.TabIndex = 17;
             CancelSave.Text = "X";
             CancelSave.UseVisualStyleBackColor = true;
+            CancelSave.UseWaitCursor = true;
             CancelSave.Click += CancelSave_Click;
+            // 
+            // notifyIcon1
+            // 
+            notifyIcon1.ContextMenuStrip = contextMenuStripNotify;
+            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
+            notifyIcon1.Text = "notifyIcon1";
+            notifyIcon1.Visible = true;
+            notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
+            // 
+            // contextMenuStripNotify
+            // 
+            contextMenuStripNotify.Items.AddRange(new ToolStripItem[] { показатиToolStripMenuItem, закритиToolStripMenuItem });
+            contextMenuStripNotify.Name = "contextMenuStripNotify";
+            contextMenuStripNotify.Size = new Size(126, 48);
+            // 
+            // показатиToolStripMenuItem
+            // 
+            показатиToolStripMenuItem.Name = "показатиToolStripMenuItem";
+            показатиToolStripMenuItem.Size = new Size(125, 22);
+            показатиToolStripMenuItem.Text = "Показати";
+            показатиToolStripMenuItem.Click += показатиToolStripMenuItem_Click;
+            // 
+            // закритиToolStripMenuItem
+            // 
+            закритиToolStripMenuItem.Name = "закритиToolStripMenuItem";
+            закритиToolStripMenuItem.Size = new Size(125, 22);
+            закритиToolStripMenuItem.Text = "Закрити";
+            закритиToolStripMenuItem.Click += закритиToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -301,12 +352,15 @@
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            UseWaitCursor = true;
             Load += Form1_Load;
+            Resize += Form1_Resize;
             ((System.ComponentModel.ISupportInitialize)errorReadCity).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             SaveBufferContextMenuStrip.ResumeLayout(false);
+            contextMenuStripNotify.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -338,5 +392,9 @@
         private ContextMenuStrip SaveBufferContextMenuStrip;
         private ToolStripMenuItem редагуватиToolStripMenuItem;
         private ToolStripMenuItem видалитиToolStripMenuItem;
+        private NotifyIcon notifyIcon1;
+        private ContextMenuStrip contextMenuStripNotify;
+        private ToolStripMenuItem показатиToolStripMenuItem;
+        private ToolStripMenuItem закритиToolStripMenuItem;
     }
 }
