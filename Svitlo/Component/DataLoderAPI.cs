@@ -97,7 +97,6 @@ namespace Svitlo.Component
             };
 
             var data = new FormUrlEncodedContent(values);
-            HttpClient client = new HttpClient();
             using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax", data);
             reponse.EnsureSuccessStatusCode();
             List<Test> content = await reponse.Content.ReadFromJsonAsync<List<Test>>();

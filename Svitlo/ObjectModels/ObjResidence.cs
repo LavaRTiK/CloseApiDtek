@@ -8,27 +8,30 @@ namespace Svitlo.ObjectModels
 {
     public class ObjResidence
     {
-        public string name { get;set; }
-        public int idCity { get;set; }
-        public string city {  get; set; }
-        public int idStreet {  get; set; }
-        public string street {  get; set; }
-        public int idHouse { get; set; }
-        public string house { get; set; }
+        public string Name { get;set; }
+        public int IdCity { get;set; }
+        public string City {  get; set; }
+        public int IdStreet {  get; set; }
+        public string Street {  get; set; }
+        public int IdHouse { get; set; }
+        public string House { get; set; }
+        public bool IsFollowing { get; set; }
 
         public ObjResidence(string name,int idCity,string city,int idStreet,string street,int idHouse,string house)
         {
-            this.name = name;
-            this.idCity = idCity;
-            this.city = city;
-            this.idStreet = idStreet;
-            this.street = street;
-            this.idHouse = idHouse;
-            this.house = house;
+            this.Name = name;
+            this.IdCity = idCity;
+            this.City = city;
+            this.IdStreet = idStreet;
+            this.Street = street;
+            this.IdHouse = idHouse;
+            this.House = house;
+            this.IsFollowing = false;
+            
         }
         public override string ToString()
         {
-            return name;
+            return Name;
         }
     }
 }

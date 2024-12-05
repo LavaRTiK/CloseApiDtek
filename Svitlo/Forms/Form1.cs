@@ -5,6 +5,7 @@ using HtmlAgilityPack;
 using Svitlo.Component;
 using Svitlo.ObjectModels;
 using Timer = System.Windows.Forms.Timer;
+using Svitlo.Forms;
 /*
   Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
   Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
@@ -14,7 +15,9 @@ using Timer = System.Windows.Forms.Timer;
   сделать delete //ok 
   посмотреть как сделать trail app / реализвовать увидомления windows если это возможно  (notify icon)   notify - 
   сделать форму настройки таймер c отключениям света туда добавить увидомления 
-  перенести в dataloader cheak
+  перенести в dataloader cheak //ok
+  изучить CancellationToken для запуска задачи для оповищения
+  traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged)
  */
 namespace Svitlo
 {
@@ -257,12 +260,12 @@ namespace Svitlo
                 readCity.Enabled = false;
                 readStreet.Enabled = false;
                 readHouse.Enabled = false;
-                readCity.Text = data.city;
-                readStreet.Text = data.street;
-                readHouse.Text = data.house;
-                idCity = data.idCity;
-                idStreet = data.idStreet;
-                idHouse = data.idHouse;
+                readCity.Text = data.City;
+                readStreet.Text = data.Street;
+                readHouse.Text = data.House;
+                idCity = data.IdCity;
+                idStreet = data.IdStreet;
+                idHouse = data.IdHouse;
                 CancelSave.Visible = true;
             }
             readCity.TextChanged += readCity_TextChanged;
@@ -286,9 +289,9 @@ namespace Svitlo
 
             if (hoverTime >= 2000)
             {
-                readCity.Text = currentItem.city;
-                readStreet.Text = currentItem.street;
-                readHouse.Text = currentItem.house;
+                readCity.Text = currentItem.City;
+                readStreet.Text = currentItem.Street;
+                readHouse.Text = currentItem.House;
                 testlabel.Text = $"Selected: {currentItem}";
                 hoverTime = 0;
             }
@@ -347,7 +350,7 @@ namespace Svitlo
                 var data = (ObjResidence)SaveBufferComboBox.Items[SaveBufferComboBox.SelectedIndex];
                 if (data != null)
                 {
-                    string message = $"Видалити:{data.name}?";
+                    string message = $"Видалити:{data.Name}?";
                     string caption = "Видалення";
                     MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                     MessageBoxIcon icon = MessageBoxIcon.Warning;
@@ -405,5 +408,11 @@ namespace Svitlo
         {
             this.Close();
         }
-    }
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            TrackingAddressSettings trackingAddressSettings = new TrackingAddressSettings();
+            trackingAddressSettings.ShowDialog();
+        }
+
+        }
 }

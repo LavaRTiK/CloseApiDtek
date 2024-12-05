@@ -16,7 +16,7 @@ namespace Svitlo
 {
     public partial class AddAddress : Form
     {
-        private bool isChangeIndexReadCity = false;
+        //private bool isChangeIndexReadCity = false;
         DataLoderAPI dataLoderAPI = new DataLoderAPI();
         Regex regex = new Regex(@"[0-9]+");
         private DataObjResidence dataObjResidence = new DataObjResidence(); 
@@ -164,7 +164,7 @@ namespace Svitlo
             }
             else
             {
-                errorReadHouseComboBox.SetError(this.readHouse, "Довжина тексту повина будти більше 3-ох");
+                errorReadHouseComboBox.SetError(this.readHouse, "Довжина тексту повина будти більше 1-ох");
                 rule[3] = false; //house
             }
         }
@@ -210,7 +210,7 @@ namespace Svitlo
         {
             if (textBoxName.Text.Length >= 4 && !string.IsNullOrWhiteSpace(textBoxName.Text) && textBoxName.Text.Trim(' ').Length >= 4)
             {
-                if(dataObjResidence.GetAll().Any(x => x.name == textBoxName.Text))
+                if(dataObjResidence.GetAll().Any(x => x.Name == textBoxName.Text))
                 {
                     errorName.SetError(this.textBoxName, "Назва занята");
                     rule[0] = false; //name

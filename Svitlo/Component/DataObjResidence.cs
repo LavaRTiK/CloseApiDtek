@@ -23,7 +23,23 @@ namespace Svitlo.Component
             using (StreamReader sr = new StreamReader("save.txt"))
             {
                 string data = await sr.ReadToEndAsync();
-                saveObjResidences = JsonSerializer.Deserialize<List<ObjResidence>>(data);
+                if(!string.IsNullOrWhiteSpace(data))
+                {
+                    try
+                    {
+                        saveObjResidences = JsonSerializer.Deserialize<List<ObjResidence>>(data);
+                    }
+                    catch (JsonException ex) {
+#if DEBUG
+                        MessageBox.Show("Ошибка JSON" + ex.Message);
+#endif
+                        saveObjResidences = new List<ObjResidence>();
+                    }
+                }
+                else
+                {
+                    saveObjResidences = new List<ObjResidence>();
+                }
             }
         }
         public async Task LoadData()
@@ -54,6 +70,10 @@ namespace Svitlo.Component
         public List<ObjResidence> GetAll()
         {
             return saveObjResidences;
+        }
+        public void EditIsFollowing(string name,bool isFollowing)
+        {
+            saveObjResidences[saveObjResidences.FindIndex(x => x.Name == name)].IsFollowing = isFollowing;
         }
     }
 }

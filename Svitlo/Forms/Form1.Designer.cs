@@ -60,6 +60,7 @@
             contextMenuStripNotify = new ContextMenuStrip(components);
             показатиToolStripMenuItem = new ToolStripMenuItem();
             закритиToolStripMenuItem = new ToolStripMenuItem();
+            buttonSettings = new Button();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
@@ -76,7 +77,6 @@
             button1.TabIndex = 1;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
-            button1.UseWaitCursor = true;
             button1.Click += button1_Click;
             // 
             // richTextBox1
@@ -86,7 +86,6 @@
             richTextBox1.Size = new Size(449, 224);
             richTextBox1.TabIndex = 2;
             richTextBox1.Text = "";
-            richTextBox1.UseWaitCursor = true;
             // 
             // readCity
             // 
@@ -95,7 +94,6 @@
             readCity.Name = "readCity";
             readCity.Size = new Size(171, 23);
             readCity.TabIndex = 3;
-            readCity.UseWaitCursor = true;
             readCity.SelectedIndexChanged += readCity_SelectedIndexChanged;
             readCity.SelectionChangeCommitted += readCity_SelectionChangeCommitted;
             readCity.TextChanged += readCity_TextChanged;
@@ -108,7 +106,6 @@
             labelCity.Size = new Size(39, 15);
             labelCity.TabIndex = 4;
             labelCity.Text = "Місто";
-            labelCity.UseWaitCursor = true;
             // 
             // errorReadCity
             // 
@@ -122,7 +119,6 @@
             labelStreet.Size = new Size(54, 15);
             labelStreet.TabIndex = 5;
             labelStreet.Text = "Вуллиця";
-            labelStreet.UseWaitCursor = true;
             labelStreet.Click += labelStreet_Click;
             // 
             // readStreet
@@ -132,7 +128,6 @@
             readStreet.Name = "readStreet";
             readStreet.Size = new Size(177, 23);
             readStreet.TabIndex = 6;
-            readStreet.UseWaitCursor = true;
             readStreet.SelectedIndexChanged += readStreet_SelectedIndexChanged;
             readStreet.SelectionChangeCommitted += readStreet_SelectionChangeCommitted;
             readStreet.TextChanged += readStreet_TextChanged;
@@ -149,7 +144,6 @@
             labelHouse.Size = new Size(53, 15);
             labelHouse.TabIndex = 7;
             labelHouse.Text = "Будинок";
-            labelHouse.UseWaitCursor = true;
             // 
             // readHouse
             // 
@@ -158,7 +152,6 @@
             readHouse.Name = "readHouse";
             readHouse.Size = new Size(137, 23);
             readHouse.TabIndex = 8;
-            readHouse.UseWaitCursor = true;
             readHouse.SelectedIndexChanged += readHouse_SelectedIndexChanged;
             readHouse.SelectionChangeCommitted += readHouse_SelectionChangeCommitted;
             readHouse.TextChanged += readHouse_TextChanged;
@@ -175,7 +168,6 @@
             button2.TabIndex = 9;
             button2.Text = "По Адресу";
             button2.UseVisualStyleBackColor = true;
-            button2.UseWaitCursor = true;
             button2.Click += button2_Click;
             // 
             // label1
@@ -186,7 +178,6 @@
             label1.Size = new Size(38, 15);
             label1.TabIndex = 10;
             label1.Text = "label1";
-            label1.UseWaitCursor = true;
             // 
             // richTextBox2
             // 
@@ -195,17 +186,15 @@
             richTextBox2.Size = new Size(301, 227);
             richTextBox2.TabIndex = 11;
             richTextBox2.Text = "";
-            richTextBox2.UseWaitCursor = true;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(227, 138);
+            dataGridView1.Location = new Point(33, 123);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(439, 271);
             dataGridView1.TabIndex = 12;
-            dataGridView1.UseWaitCursor = true;
             // 
             // Date
             // 
@@ -225,7 +214,6 @@
             SaveBuffer.Size = new Size(65, 15);
             SaveBuffer.TabIndex = 13;
             SaveBuffer.Text = "Збережені";
-            SaveBuffer.UseWaitCursor = true;
             // 
             // SaveBufferComboBox
             // 
@@ -235,7 +223,6 @@
             SaveBufferComboBox.Name = "SaveBufferComboBox";
             SaveBufferComboBox.Size = new Size(121, 23);
             SaveBufferComboBox.TabIndex = 14;
-            SaveBufferComboBox.UseWaitCursor = true;
             SaveBufferComboBox.DropDown += SaveBufferComboBox_DropDown;
             SaveBufferComboBox.SelectedIndexChanged += SaveBufferComboBox_SelectedIndexChanged;
             SaveBufferComboBox.DropDownClosed += SaveBufferComboBox_DropDownClosed;
@@ -272,7 +259,6 @@
             button3.TabIndex = 15;
             button3.Text = "Добавити адресу";
             button3.UseVisualStyleBackColor = true;
-            button3.UseWaitCursor = true;
             button3.Click += button3_Click;
             // 
             // testlabel
@@ -283,7 +269,6 @@
             testlabel.Size = new Size(38, 15);
             testlabel.TabIndex = 16;
             testlabel.Text = "label2";
-            testlabel.UseWaitCursor = true;
             // 
             // hoverTimer
             // 
@@ -297,7 +282,6 @@
             CancelSave.TabIndex = 17;
             CancelSave.Text = "X";
             CancelSave.UseVisualStyleBackColor = true;
-            CancelSave.UseWaitCursor = true;
             CancelSave.Click += CancelSave_Click;
             // 
             // notifyIcon1
@@ -328,11 +312,22 @@
             закритиToolStripMenuItem.Text = "Закрити";
             закритиToolStripMenuItem.Click += закритиToolStripMenuItem_Click;
             // 
+            // buttonSettings
+            // 
+            buttonSettings.Location = new Point(758, 9);
+            buttonSettings.Name = "buttonSettings";
+            buttonSettings.Size = new Size(30, 23);
+            buttonSettings.TabIndex = 18;
+            buttonSettings.Text = "button4";
+            buttonSettings.UseVisualStyleBackColor = true;
+            buttonSettings.Click += buttonSettings_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonSettings);
             Controls.Add(CancelSave);
             Controls.Add(testlabel);
             Controls.Add(button3);
@@ -352,7 +347,6 @@
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
-            UseWaitCursor = true;
             Load += Form1_Load;
             Resize += Form1_Resize;
             ((System.ComponentModel.ISupportInitialize)errorReadCity).EndInit();
@@ -396,5 +390,6 @@
         private ContextMenuStrip contextMenuStripNotify;
         private ToolStripMenuItem показатиToolStripMenuItem;
         private ToolStripMenuItem закритиToolStripMenuItem;
+        private Button buttonSettings;
     }
 }
