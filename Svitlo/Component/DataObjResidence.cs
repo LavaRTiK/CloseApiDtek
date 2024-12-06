@@ -13,7 +13,7 @@ namespace Svitlo.Component
     {
         private static List<ObjResidence> saveObjResidences = new List<ObjResidence>();
 
-        public async Task ReadData()
+        public async Task ReadDataAsync()
         {
             //Выгрузка с save.txt
             if (!File.Exists("save.txt"))
@@ -27,7 +27,7 @@ namespace Svitlo.Component
                 {
                     try
                     {
-                        saveObjResidences = JsonSerializer.Deserialize<List<ObjResidence>>(data);
+                        saveObjResidences =JsonSerializer.Deserialize<List<ObjResidence>>(data);
                     }
                     catch (JsonException ex) {
 #if DEBUG
@@ -42,7 +42,7 @@ namespace Svitlo.Component
                 }
             }
         }
-        public async Task LoadData()
+        public async Task LoadDataAsync()
         {
             //Запись в save.txt
             if (!File.Exists("save.txt"))

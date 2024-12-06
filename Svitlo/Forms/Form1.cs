@@ -17,7 +17,7 @@ using Svitlo.Forms;
   сделать форму настройки таймер c отключениям света туда добавить увидомления 
   перенести в dataloader cheak //ok
   изучить CancellationToken для запуска задачи для оповищения
-  traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged)
+  traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged) сделал по другому //ok 
  */
 namespace Svitlo
 {
@@ -358,7 +358,7 @@ namespace Svitlo
                     if (result == DialogResult.Yes)
                     {
                         dataObjResidence.Remove(data);
-                        await dataObjResidence.LoadData();
+                        await dataObjResidence.LoadDataAsync();
                         await SaveBufferComboBoxUpdate();
                     }
                 }
@@ -367,7 +367,7 @@ namespace Svitlo
         private async Task SaveBufferComboBoxUpdate()
         {
             SaveBufferComboBox.Items.Clear();
-            await dataObjResidence.ReadData();
+            await dataObjResidence.ReadDataAsync();
             dataResidencesList = dataObjResidence.GetAll();
             if (dataResidencesList != null)
             {
@@ -411,8 +411,10 @@ namespace Svitlo
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             TrackingAddressSettings trackingAddressSettings = new TrackingAddressSettings();
-            trackingAddressSettings.ShowDialog();
+            if(trackingAddressSettings.ShowDialog() == DialogResult.OK)
+            {
+                //somethings
+            }
         }
-
         }
 }

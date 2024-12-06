@@ -190,7 +190,7 @@ namespace Svitlo
         {
             ObjResidence obj = new ObjResidence(textBoxName.Text, idCity, readCity.Text, idStreet, readStreet.Text, idHouse, readHouse.Text);
             dataObjResidence.Add(obj);
-            await dataObjResidence.LoadData();
+            await dataObjResidence.LoadDataAsync();
             DialogResult = DialogResult.OK;
         }
         //Перевірка вимог форми
