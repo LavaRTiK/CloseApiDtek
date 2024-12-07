@@ -61,6 +61,7 @@
             показатиToolStripMenuItem = new ToolStripMenuItem();
             закритиToolStripMenuItem = new ToolStripMenuItem();
             buttonSettings = new Button();
+            button4 = new Button();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
@@ -322,11 +323,22 @@
             buttonSettings.UseVisualStyleBackColor = true;
             buttonSettings.Click += buttonSettings_Click;
             // 
+            // button4
+            // 
+            button4.Location = new Point(527, 94);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 19;
+            button4.Text = "button4";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button4);
             Controls.Add(buttonSettings);
             Controls.Add(CancelSave);
             Controls.Add(testlabel);
@@ -391,5 +403,6 @@
         private ToolStripMenuItem показатиToolStripMenuItem;
         private ToolStripMenuItem закритиToolStripMenuItem;
         private Button buttonSettings;
+        private Button button4;
     }
 }

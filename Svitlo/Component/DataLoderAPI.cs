@@ -95,12 +95,21 @@ namespace Svitlo.Component
                 { "ajax_page_state[theme_token]", "" },
                 { "ajax_page_state[libraries]", "ajax_forms/main,classy/base,classy/messages,core/drupal.autocomplete,core/internal.jquery.form,core/normalize,custom/custom,drupal_noty_messages/drupal_noty_messages,extlink/drupal.extlink,filter/caption,paragraphs/drupal.paragraphs.unpublished,personal/global-styling,personal/sticky,personal/toggle_info,personal/type_navigation_unit,poll/drupal.poll-links,search_block/search_block.styles,styling_form_errors/styling_form_errors,system/base" }
             };
-
-            var data = new FormUrlEncodedContent(values);
-            using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax", data);
-            reponse.EnsureSuccessStatusCode();
-            List<Test> content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
-            return content;
+            try
+            {
+                var data = new FormUrlEncodedContent(values);
+                using HttpResponseMessage reponse = await client.PostAsync($@"https://www.voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax", data);
+                reponse.EnsureSuccessStatusCode();
+                List<Test> content = await reponse.Content.ReadFromJsonAsync<List<Test>>();
+                return content;
+            }
+            catch(Exception ex )
+            {
+                #if DEBUG
+                MessageBox.Show("Помилка спробуйте знову статус помилки \n" + ex.Message);
+                #endif
+            }
+            return null;
         }
     }
 }

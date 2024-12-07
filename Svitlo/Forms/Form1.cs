@@ -180,7 +180,7 @@ namespace Svitlo
 
         private async Task check()
         {
-            var content = await dataLoderAPI.RequestDisconnectDataAsync(readCity.Text,idCity,readStreet.Text,idStreet,readHouse.Text,idHouse);
+            var content = await dataLoderAPI.RequestDisconnectDataAsync(readCity.Text, idCity, readStreet.Text, idStreet, readHouse.Text, idHouse);
             richTextBox1.Text = content.ToString();
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(content[2].data.ToString());
@@ -411,10 +411,16 @@ namespace Svitlo
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             TrackingAddressSettings trackingAddressSettings = new TrackingAddressSettings();
-            if(trackingAddressSettings.ShowDialog() == DialogResult.OK)
+            if (trackingAddressSettings.ShowDialog() == DialogResult.OK)
             {
                 //somethings
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            TrackingAddress test = new TrackingAddress(dataResidencesList[0]);
+            test.StartFollowing();
         }
+    }
 }
