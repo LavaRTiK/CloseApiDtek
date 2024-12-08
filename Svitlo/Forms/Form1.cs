@@ -150,7 +150,7 @@ namespace Svitlo
         }
         private async Task SearchHouse()
         {
-            if (readHouse.Text.Length > 3)
+            if (readHouse.Text.Length >= 1)
             {
                 errorReadHouse.SetError(this.readHouse, "Виконується запит");
                 var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
@@ -166,7 +166,7 @@ namespace Svitlo
             }
             else
             {
-                errorReadHouse.SetError(this.readHouse, "Довжина тексту повина будти більше 3-ох");
+                errorReadHouse.SetError(this.readHouse, "Довжина тексту повина будти більше 1-ох");
             }
         }
         private void readHouse_SelectedIndexChanged(object sender, EventArgs e)
