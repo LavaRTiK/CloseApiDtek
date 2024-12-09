@@ -18,6 +18,7 @@ using Svitlo.Forms;
   перенести в dataloader cheak //ok
   изучить CancellationToken для запуска задачи для оповищения
   traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged) сделал по другому //ok 
+  сохран даные сделать индикатор запроса 
  */
 namespace Svitlo
 {
@@ -181,7 +182,7 @@ namespace Svitlo
         private async Task check()
         {
             var content = await dataLoderAPI.RequestDisconnectDataAsync(readCity.Text, idCity, readStreet.Text, idStreet, readHouse.Text, idHouse);
-            richTextBox1.Text = content.ToString();
+            richTextBox1.Text = content[2].data.ToString();
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(content[2].data.ToString());
 
@@ -419,7 +420,7 @@ namespace Svitlo
 
         private void button4_Click(object sender, EventArgs e)
         {
-            TrackingAddress test = new TrackingAddress(dataResidencesList[0]);
+            TrackingAddress test = new TrackingAddress(dataResidencesList[1]);
             test.StartFollowing();
         }
     }

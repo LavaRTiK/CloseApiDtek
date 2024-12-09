@@ -82,7 +82,7 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(33, 122);
+            richTextBox1.Location = new Point(21, 174);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(449, 224);
             richTextBox1.TabIndex = 2;
@@ -192,7 +192,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(33, 123);
+            dataGridView1.Location = new Point(758, 258);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(439, 271);
             dataGridView1.TabIndex = 12;
@@ -337,7 +337,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1194, 541);
             Controls.Add(button4);
             Controls.Add(buttonSettings);
             Controls.Add(CancelSave);
