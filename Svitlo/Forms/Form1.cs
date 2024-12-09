@@ -31,6 +31,7 @@ namespace Svitlo
         private int idCity = 0;
         private int idStreet = 0;
         private int idHouse = 0;
+        private List<TrackingAddress> currentTraking = new List<TrackingAddress>();
         //test
         private ObjResidence currentItem;
         private int hoverTime;
@@ -48,6 +49,8 @@ namespace Svitlo
             notifyIcon1.Text = "Svitlo";
             CancelSave.Visible = false;
             await SaveBufferComboBoxUpdate();
+
+            CheakTrackingUpadate();
         }
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -414,7 +417,7 @@ namespace Svitlo
             TrackingAddressSettings trackingAddressSettings = new TrackingAddressSettings();
             if (trackingAddressSettings.ShowDialog() == DialogResult.OK)
             {
-                //somethings
+                CheakTrackingUpadate();
             }
         }
 
@@ -422,6 +425,36 @@ namespace Svitlo
         {
             TrackingAddress test = new TrackingAddress(dataResidencesList[1]);
             test.StartFollowing();
+        }
+        private void CheakTrackingUpadate()
+        {
+            foreach (var item in dataResidencesList)
+            {
+                if(item.IsFollowing == true)
+                {
+                    if (currentTraking.Any(x => x.Name == item.Name))
+                    {
+
+                    }
+                    else
+                    {
+                        TrackingAddress trackingAddress = new TrackingAddress(item);
+                        currentTraking.Add(trackingAddress);
+                        trackingAddress.StartFollowing();
+                    }
+                    
+                }
+                else
+                {
+                    if(currentTraking.Any(x => x.Name == item.Name))
+                    {
+                        var temp = currentTraking.Find(x => x.Name == item.Name);
+                        temp.StopFollowing();
+                        currentTraking.Remove(temp);
+                    }
+                }
+            }
+            MessageBox.Show(currentTraking.Count.ToString());
         }
     }
 }

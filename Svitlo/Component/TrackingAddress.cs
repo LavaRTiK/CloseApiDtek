@@ -38,6 +38,7 @@ namespace Svitlo.Component
         }
         public void StartFollowing()
         {
+            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Почав слідкувати за відключенням", ToolTipIcon.Warning);
             Task.Run(async ()  =>
             {
                 SetTimerUpdate();
@@ -62,12 +63,23 @@ namespace Svitlo.Component
                     }
                     MessageBox.Show("Update");
                     //test if
-                    await Task.Delay(60000);
+                    try
+                    {
+                        await Task.Delay(60000, cancellationToken);
+                    }
+                    catch(TaskCanceledException)
+                    {
+#if DEBUG
+                        //MessageBox.Show(Name + "закінчився");
+#endif
+                    }
                 }
                 aTimer.Stop();
                 aTimer.Dispose();
+                notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Зкінчив слідкувати за адерсую", ToolTipIcon.Warning);
+                await Task.Delay(1000);
+                notifyIcon.Dispose();
                 //тут стопаем все таймеры
-                //доделать ослеживания в форме
 
             }, cancellationToken);
         }
