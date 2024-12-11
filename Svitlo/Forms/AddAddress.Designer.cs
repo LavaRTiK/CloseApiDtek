@@ -177,6 +177,7 @@
             Controls.Add(labelStreet);
             Controls.Add(labelCity);
             Controls.Add(readCity);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AddAddress";
             Text = "AddAddress";
             Load += AddAddress_Load;

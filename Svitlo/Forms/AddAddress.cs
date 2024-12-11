@@ -51,6 +51,7 @@ namespace Svitlo
                 var content = await dataLoderAPI.SearchCityAsync(readCity.Text);
                 if (content != null)
                 {
+                    int cursorPosition = readCity.SelectionStart;
                     readCity.BeginUpdate();
                     readCity.Items.Clear();
                     foreach (var item in content)
@@ -58,6 +59,7 @@ namespace Svitlo
                         readCity.Items.Add(item);
                     }
                     readCity.EndUpdate();
+                    readCity.SelectionStart = cursorPosition;
                     errorReadCityComboBox.SetError(this.readCity, String.Empty);
                 }
             }
@@ -101,6 +103,7 @@ namespace Svitlo
                 var content = await dataLoderAPI.SearchStreetAsync(idCity, readStreet.Text);
                 if (content != null)
                 {
+                    int cursorPosition = readStreet.SelectionStart;
                     readStreet.BeginUpdate();
                     readStreet.Items.Clear();
                     foreach (var item in content)
@@ -108,6 +111,7 @@ namespace Svitlo
                         readStreet.Items.Add(item);
                     }
                     readStreet.EndUpdate();
+                    readStreet.SelectionStart = cursorPosition;
                     errorReadStreetComboBox.SetError(this.readStreet, String.Empty);
                 }
             }
@@ -152,6 +156,7 @@ namespace Svitlo
                 var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
                 if (content != null)
                 {
+                    int cursorPosition = readHouse.SelectionStart;
                     readHouse.BeginUpdate();
                     readHouse.Items.Clear();
                     foreach (var item in content)
@@ -159,6 +164,7 @@ namespace Svitlo
                         readHouse.Items.Add(item);
                     }
                     readHouse.EndUpdate();
+                    readHouse.SelectionStart = cursorPosition;
                     errorReadHouseComboBox.SetError(this.readHouse, String.Empty);
                 }
             }

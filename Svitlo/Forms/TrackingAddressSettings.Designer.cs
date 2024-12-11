@@ -83,7 +83,7 @@
             // 
             // Save
             // 
-            Save.Location = new Point(516, 361);
+            Save.Location = new Point(516, 211);
             Save.Name = "Save";
             Save.Size = new Size(75, 23);
             Save.TabIndex = 1;
@@ -95,9 +95,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(603, 396);
+            ClientSize = new Size(603, 250);
             Controls.Add(Save);
             Controls.Add(dataGridView1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "TrackingAddressSettings";
             Text = "TrackingAddressSettings";
             Load += TrackingAddressSettings_Load;

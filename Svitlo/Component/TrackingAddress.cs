@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 
+
 namespace Svitlo.Component
 {
     public class TrackingAddress
@@ -45,23 +46,40 @@ namespace Svitlo.Component
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
-                    TimeOnly time = new TimeOnly(22, 00);
-                    TimeOnly testOne = new TimeOnly(1, 00);
-                    TimeOnly testTwo = new TimeOnly(0, 15);
-                    TimeOnly testThree = new TimeOnly(0, 5);
                     if (currentDicssonect[currentTime.AddHours(1).ToString()] == "+" || currentDicssonect[currentTime.AddHours(1).ToString()] == "+-")
                     {
-                        notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через годину", ToolTipIcon.Info);
+                        if (currentDicssonect[currentTime.AddHours(1).ToString()] == "+")
+                        {
+                            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через годину", ToolTipIcon.Info);
+                        }
+                        else
+                        {
+                            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Можливе відключення світла через годину", ToolTipIcon.Info);
+                        }
                     }
                     else if (currentDicssonect[currentTime.AddMinutes(15).ToString()] == "+" || currentDicssonect[currentTime.AddMinutes(15).ToString()] == "+-")
                     {
-                        notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через 15 хвилин", ToolTipIcon.Info);
+                        if (currentDicssonect[currentTime.AddMinutes(15).ToString()] == "+")
+                        {
+                            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через 15 хвилин", ToolTipIcon.Info);
+                        }
+                        else
+                        {
+                            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Можливе відключення світла через 15 хвилин", ToolTipIcon.Info);
+                        }
                     }
                     else if (currentDicssonect[currentTime.AddMinutes(5).ToString()] == "+" || currentDicssonect[currentTime.AddMinutes(5).ToString()] == "+-")
                     {
-                        notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через 5 хвилин", ToolTipIcon.Info);
+                        if (currentDicssonect[currentTime.AddMinutes(5).ToString()] == "+")
+                        {
+                            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через 5 хвилин", ToolTipIcon.Info);
+                        }
+                        else
+                        {
+                            notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Можливе відключення світла через 5 хвилин", ToolTipIcon.Info);
+                        }
                     }
-                    MessageBox.Show("Update");
+                    //MessageBox.Show("Update");
                     //test if
                     try
                     {

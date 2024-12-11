@@ -13,12 +13,14 @@ using Svitlo.Forms;
   сделать name в save как индификатор для дальшего поиска указателя доделать в Address совпадения по имени //ok
   сделать форму для удаления адресов (доп) найти способ перехвата правой кнопки мышки в combobox списке вызывать ContextStripMenu //не возможно простым путем 
   сделать delete //ok 
-  посмотреть как сделать trail app / реализвовать увидомления windows если это возможно  (notify icon)   notify - 
-  сделать форму настройки таймер c отключениям света туда добавить увидомления 
+  посмотреть как сделать trail app / реализвовать увидомления windows если это возможно  (notify icon)   notify - //ok
+  сделать форму настройки таймер c отключениям света туда добавить увидомления  //ok
   перенести в dataloader cheak //ok
-  изучить CancellationToken для запуска задачи для оповищения
   traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged) сделал по другому //ok 
   сохран даные сделать индикатор запроса 
+  посмотреть как сделать автозапуск для програмы
+  доделать возможное отключения света
+  grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
  */
 namespace Svitlo
 {
@@ -77,6 +79,7 @@ namespace Svitlo
                 var content = await dataLoderAPI.SearchCityAsync(readCity.Text);
                 if (content != null)
                 {
+                    int cursorPosition = readCity.SelectionStart;
                     readCity.BeginUpdate();
                     readCity.Items.Clear();
                     foreach (var item in content)
@@ -84,6 +87,7 @@ namespace Svitlo
                         readCity.Items.Add(item);
                     }
                     readCity.EndUpdate();
+                    readCity.SelectionStart = cursorPosition;
                     errorReadCity.SetError(this.readCity, String.Empty);
                 }
             }
@@ -120,11 +124,15 @@ namespace Svitlo
                 var content = await dataLoderAPI.SearchStreetAsync(idCity, readStreet.Text);
                 if (content != null)
                 {
+                    int cursorPosition = readStreet.SelectionStart;
+                    readStreet.BeginUpdate();
                     readStreet.Items.Clear();
                     foreach (var item in content)
                     {
                         readStreet.Items.Add(item);
                     }
+                    readStreet.EndUpdate();
+                    readStreet.SelectionStart = cursorPosition;
                     errorReadStreet.SetError(this.readStreet, String.Empty);
                 }
             }
@@ -160,11 +168,15 @@ namespace Svitlo
                 var content = await dataLoderAPI.SearchHouseAsync(idStreet, readHouse.Text);
                 if (content != null)
                 {
+                    int cursorPosition = readHouse.SelectionStart;
+                    readHouse.BeginUpdate();
                     readHouse.Items.Clear();
                     foreach (var item in content)
                     {
                         readHouse.Items.Add(item);
                     }
+                    readHouse.EndUpdate();
+                    readHouse.SelectionStart = cursorPosition;
                     errorReadHouse.SetError(this.readHouse, String.Empty);
                 }
             }
@@ -423,8 +435,7 @@ namespace Svitlo
 
         private void button4_Click(object sender, EventArgs e)
         {
-            TrackingAddress test = new TrackingAddress(dataResidencesList[1]);
-            test.StartFollowing();
+
         }
         private void CheakTrackingUpadate()
         {
@@ -454,7 +465,8 @@ namespace Svitlo
                     }
                 }
             }
-            MessageBox.Show(currentTraking.Count.ToString());
+            //MessageBox.Show(currentTraking.Count.ToString());
         }
+        //test
     }
 }

@@ -82,7 +82,7 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(21, 174);
+            richTextBox1.Location = new Point(12, 174);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(449, 224);
             richTextBox1.TabIndex = 2;
@@ -192,7 +192,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(758, 258);
+            dataGridView1.Location = new Point(345, 138);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(439, 271);
             dataGridView1.TabIndex = 12;
@@ -329,7 +329,7 @@
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 19;
-            button4.Text = "button4";
+            button4.Text = "test";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
@@ -337,7 +337,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1194, 541);
+            ClientSize = new Size(796, 541);
             Controls.Add(button4);
             Controls.Add(buttonSettings);
             Controls.Add(CancelSave);
@@ -357,6 +357,7 @@
             Controls.Add(readCity);
             Controls.Add(richTextBox1);
             Controls.Add(button1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
