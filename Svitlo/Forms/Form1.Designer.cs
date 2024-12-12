@@ -30,8 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            button1 = new Button();
-            richTextBox1 = new RichTextBox();
             readCity = new ComboBox();
             labelCity = new Label();
             errorReadCity = new ErrorProvider(components);
@@ -42,8 +40,6 @@
             readHouse = new ComboBox();
             errorReadHouse = new ErrorProvider(components);
             button2 = new Button();
-            label1 = new Label();
-            richTextBox2 = new RichTextBox();
             dataGridView1 = new DataGridView();
             Date = new DataGridViewTextBoxColumn();
             test = new DataGridViewTextBoxColumn();
@@ -70,24 +66,6 @@
             SaveBufferContextMenuStrip.SuspendLayout();
             contextMenuStripNotify.SuspendLayout();
             SuspendLayout();
-            // 
-            // button1
-            // 
-            button1.Location = new Point(349, 415);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // richTextBox1
-            // 
-            richTextBox1.Location = new Point(12, 174);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(449, 224);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
             // 
             // readCity
             // 
@@ -121,7 +99,6 @@
             labelStreet.Size = new Size(54, 15);
             labelStreet.TabIndex = 5;
             labelStreet.Text = "Вуллиця";
-            labelStreet.Click += labelStreet_Click;
             // 
             // readStreet
             // 
@@ -172,30 +149,13 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(267, 143);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 10;
-            label1.Text = "label1";
-            // 
-            // richTextBox2
-            // 
-            richTextBox2.Location = new Point(476, 140);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(301, 227);
-            richTextBox2.TabIndex = 11;
-            richTextBox2.Text = "";
-            // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(345, 138);
+            dataGridView1.Location = new Point(12, 123);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(439, 271);
+            dataGridView1.Size = new Size(764, 271);
             dataGridView1.TabIndex = 12;
             // 
             // Date
@@ -347,7 +307,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(796, 541);
+            ClientSize = new Size(796, 451);
             Controls.Add(labelIndicatorCheck);
             Controls.Add(button4);
             Controls.Add(buttonSettings);
@@ -357,8 +317,6 @@
             Controls.Add(SaveBufferComboBox);
             Controls.Add(SaveBuffer);
             Controls.Add(dataGridView1);
-            Controls.Add(richTextBox2);
-            Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(readHouse);
             Controls.Add(labelHouse);
@@ -366,8 +324,6 @@
             Controls.Add(labelStreet);
             Controls.Add(labelCity);
             Controls.Add(readCity);
-            Controls.Add(richTextBox1);
-            Controls.Add(button1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
             Text = "Form1";
@@ -384,8 +340,6 @@
         }
 
         #endregion
-        private Button button1;
-        private RichTextBox richTextBox1;
         private ComboBox readCity;
         private Label labelCity;
         private ErrorProvider errorReadCity;
@@ -395,9 +349,7 @@
         private ComboBox readHouse;
         private Label labelHouse;
         private ErrorProvider errorReadHouse;
-        private Label label1;
         private Button button2;
-        private RichTextBox richTextBox2;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn test;

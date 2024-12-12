@@ -35,6 +35,8 @@
             House = new DataGridViewTextBoxColumn();
             Following = new DataGridViewCheckBoxColumn();
             Save = new Button();
+            checkBoxAutoStartUp = new CheckBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -45,7 +47,7 @@
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { AddressName, City, Street, House, Following });
-            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Location = new Point(12, 81);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(579, 177);
             dataGridView1.TabIndex = 0;
@@ -83,7 +85,7 @@
             // 
             // Save
             // 
-            Save.Location = new Point(516, 211);
+            Save.Location = new Point(516, 264);
             Save.Name = "Save";
             Save.Size = new Size(75, 23);
             Save.TabIndex = 1;
@@ -91,11 +93,32 @@
             Save.UseVisualStyleBackColor = true;
             Save.Click += Save_Click;
             // 
+            // checkBoxAutoStartUp
+            // 
+            checkBoxAutoStartUp.AutoSize = true;
+            checkBoxAutoStartUp.Location = new Point(12, 40);
+            checkBoxAutoStartUp.Name = "checkBoxAutoStartUp";
+            checkBoxAutoStartUp.Size = new Size(128, 19);
+            checkBoxAutoStartUp.TabIndex = 2;
+            checkBoxAutoStartUp.Text = "Автозавантаження";
+            checkBoxAutoStartUp.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(248, 19);
+            label1.Name = "label1";
+            label1.Size = new Size(89, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Налаштування";
+            // 
             // TrackingAddressSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(603, 250);
+            ClientSize = new Size(603, 299);
+            Controls.Add(label1);
+            Controls.Add(checkBoxAutoStartUp);
             Controls.Add(Save);
             Controls.Add(dataGridView1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -104,6 +127,7 @@
             Load += TrackingAddressSettings_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -115,5 +139,7 @@
         private DataGridViewTextBoxColumn House;
         private DataGridViewCheckBoxColumn Following;
         private Button Save;
+        private CheckBox checkBoxAutoStartUp;
+        private Label label1;
     }
 }

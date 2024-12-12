@@ -18,7 +18,10 @@ using Svitlo.Forms;
   перенести в dataloader cheak //ok
   traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged) сделал по другому //ok 
   сохран даные сделать индикатор запроса //ok
-  посмотреть как сделать автозапуск для програмы:  2 сбособа через регистр или добавления в  startup якрлык
+  посмотреть как сделать автозапуск для програмы:  2 сбособа через регистр или добавления в  startup якрлык //ok
+  изображения настроки, таv будет и авто запуск в углу //ok
+  удалить все textarea  сделать grid основой убрать фон , сделать вместо +- знак молнии по возможности 
+  сделать грид на пару дней в перед переписования сheck (сделать в последню очередь) :)
   доделать возможное отключения света //ok
   grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
  */
@@ -56,19 +59,6 @@ namespace Svitlo
 
             CheakTrackingUpadate();
         }
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            HttpClient client = new HttpClient();
-            using HttpResponseMessage reponse = await client.GetAsync(@$"https://www.voe.com.ua/disconnection/detailed/autocomplete/read_city?q=Â³í");
-            reponse.EnsureSuccessStatusCode();
-            var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
-            //richTextBox1.Text = content;
-            foreach (var item in content)
-            {
-                richTextBox1.Text += $"\n {item.value} + {item.label}";
-            }
-        }
-
         private async void readCity_TextChanged(object sender, EventArgs e)
         {
             await SearchCity();
@@ -118,6 +108,7 @@ namespace Svitlo
             await SearchStreet();
 
         }
+
         private async Task SearchStreet()
         {
             if (readStreet.Text.Length > 3)
@@ -162,6 +153,7 @@ namespace Svitlo
             }
             await SearchHouse();
         }
+
         private async Task SearchHouse()
         {
             if (readHouse.Text.Length >= 1)
@@ -187,6 +179,7 @@ namespace Svitlo
                 errorReadHouse.SetError(this.readHouse, "Довжина тексту повина будти більше 1-ох");
             }
         }
+
         private void readHouse_SelectedIndexChanged(object sender, EventArgs e)
         {
             City city = (City)readHouse.SelectedItem;
@@ -199,27 +192,20 @@ namespace Svitlo
         private async Task Check()
         {
             var content = await dataLoderAPI.RequestDisconnectDataAsync(readCity.Text, idCity, readStreet.Text, idStreet, readHouse.Text, idHouse);
-            richTextBox1.Text = content[2].data.ToString();
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(content[2].data.ToString());
 
             var messageNode = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='disconnection-detailed-table-message']");
             if (messageNode != null)
             {
-                richTextBox2.Text += ("\nMessage about disconnections:");
-                richTextBox2.Text += $"\n{(messageNode.InnerText.Trim())}";
+                //cобщения
                 //Console.WriteLine();
             }
 
             var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day']");
             if (tableNode == null)
             {
-                richTextBox2.Text += "\nTable node not found.";
                 return;
-            }
-            else
-            {
-                richTextBox2.Text += "\nTable node found.";
             }
             TimeOnly time = new TimeOnly(00, 00);
             for (int i = 0; i < tableNode.Count; i++)
@@ -258,10 +244,6 @@ namespace Svitlo
             readHouse.Enabled = true;
             SaveBufferComboBox.Enabled = true;
             labelIndicatorCheck.Visible= false;
-        }
-        private void labelStreet_Click(object sender, EventArgs e)
-        {
-
         }
 
         private async void button3_Click(object sender, EventArgs e)
@@ -436,6 +418,7 @@ namespace Svitlo
         {
             this.Close();
         }
+
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             TrackingAddressSettings trackingAddressSettings = new TrackingAddressSettings();
@@ -445,9 +428,13 @@ namespace Svitlo
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show(Application.ExecutablePath);
+            MessageBox.Show(Path.GetDirectoryName(Application.ExecutablePath));
+            AutoStartUp autoStartUp = new AutoStartUp();
+            autoStartUp.CreateShortcut();
+            await Task.Delay(5000);
         }
         private void CheakTrackingUpadate()
         {

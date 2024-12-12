@@ -13,6 +13,7 @@ namespace Svitlo.Forms
 {
     public partial class TrackingAddressSettings : Form
     {
+        AutoStartUp autoStartUp = new AutoStartUp();
         DataObjResidence dataObjResidence = new DataObjResidence();
         public TrackingAddressSettings()
         {
@@ -24,6 +25,14 @@ namespace Svitlo.Forms
             foreach (var item in dataObjResidence.GetAll())
             {
                 dataGridView1.Rows.Add(item.Name, item.City, item.Street, item.House, item.IsFollowing);
+            }
+            if (autoStartUp.CheckShortcut())
+            {
+                checkBoxAutoStartUp.Checked = true;
+            }
+            else
+            {
+                checkBoxAutoStartUp.Checked=false;    
             }
         }
 
@@ -39,6 +48,21 @@ namespace Svitlo.Forms
                 }
             }
             await dataObjResidence.LoadDataAsync();
+            if (checkBoxAutoStartUp.Checked)
+            {
+                if (autoStartUp.CheckShortcut())
+                {
+
+                }
+                else
+                {
+                    autoStartUp.CreateShortcut();
+                }
+            }
+            else
+            {
+                autoStartUp.DeleteShortcut();
+            }
             DialogResult = DialogResult.OK;
         }
     }
