@@ -62,6 +62,7 @@
             закритиToolStripMenuItem = new ToolStripMenuItem();
             buttonSettings = new Button();
             button4 = new Button();
+            labelIndicatorCheck = new Label();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
@@ -333,11 +334,21 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
+            // labelIndicatorCheck
+            // 
+            labelIndicatorCheck.AutoSize = true;
+            labelIndicatorCheck.Location = new Point(284, 75);
+            labelIndicatorCheck.Name = "labelIndicatorCheck";
+            labelIndicatorCheck.Size = new Size(38, 15);
+            labelIndicatorCheck.TabIndex = 20;
+            labelIndicatorCheck.Text = "label2";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(796, 541);
+            Controls.Add(labelIndicatorCheck);
             Controls.Add(button4);
             Controls.Add(buttonSettings);
             Controls.Add(CancelSave);
@@ -405,5 +416,6 @@
         private ToolStripMenuItem закритиToolStripMenuItem;
         private Button buttonSettings;
         private Button button4;
+        private Label labelIndicatorCheck;
     }
 }

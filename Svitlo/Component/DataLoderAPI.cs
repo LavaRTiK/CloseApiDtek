@@ -22,7 +22,7 @@ namespace Svitlo.Component
                 reponse.EnsureSuccessStatusCode();
                 var content = await reponse.Content.ReadFromJsonAsync<List<City>>();
                 #if DEBUG
-                //MessageBox.Show("запрос SearchCityAsync");
+                MessageBox.Show("запрос SearchCityAsync");
                 #endif
                 return content;
             }

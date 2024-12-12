@@ -17,9 +17,9 @@ using Svitlo.Forms;
   сделать форму настройки таймер c отключениям света туда добавить увидомления  //ok
   перенести в dataloader cheak //ok
   traking address CellValueChanged отследить изменения textboxcolumn (CurrentCellDirtyStateChanged) сделал по другому //ok 
-  сохран даные сделать индикатор запроса 
-  посмотреть как сделать автозапуск для програмы
-  доделать возможное отключения света
+  сохран даные сделать индикатор запроса //ok
+  посмотреть как сделать автозапуск для програмы:  2 сбособа через регистр или добавления в  startup якрлык
+  доделать возможное отключения света //ok
   grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
  */
 namespace Svitlo
@@ -50,6 +50,8 @@ namespace Svitlo
             notifyIcon1.BalloonTipText = "Svitlo звернуто";
             notifyIcon1.Text = "Svitlo";
             CancelSave.Visible = false;
+            labelIndicatorCheck.Visible = false;
+            labelIndicatorCheck.Text = "Виконуєтья запит";
             await SaveBufferComboBoxUpdate();
 
             CheakTrackingUpadate();
@@ -194,7 +196,7 @@ namespace Svitlo
             readHouse.TextChanged += readHouse_TextChanged;
         }
 
-        private async Task check()
+        private async Task Check()
         {
             var content = await dataLoderAPI.RequestDisconnectDataAsync(readCity.Text, idCity, readStreet.Text, idStreet, readHouse.Text, idHouse);
             richTextBox1.Text = content[2].data.ToString();
@@ -238,14 +240,24 @@ namespace Svitlo
             }
             //Ñâîéñòî contains íå ñòðîãîå è èùåò êëàñ äàæå åñëè â åãî ïîä ñòðîêå èùå åñòü êàêîé-òî êëàñ
             //var rows = tableNode.SelectNodes(".//div[contains(@class, 'disconnection-detailed-table-cell')]");
-            MessageBox.Show("ëÿ îòðàáîòàë");
+            //MessageBox.Show("ëÿ îòðàáîòàë");
 
         }
 
         private async void button2_Click(object sender, EventArgs e)
         {
             //label1.Text = $"id={idCity};idstreet={idStreet}idhouse={idHouse}";
-            await check();
+            readCity.Enabled= false;
+            readStreet.Enabled= false;
+            readHouse.Enabled= false;
+            SaveBufferComboBox.Enabled = false;
+            labelIndicatorCheck.Visible= true;
+            await Check();
+            readCity.Enabled = true;
+            readStreet.Enabled = true;
+            readHouse.Enabled = true;
+            SaveBufferComboBox.Enabled = true;
+            labelIndicatorCheck.Visible= false;
         }
         private void labelStreet_Click(object sender, EventArgs e)
         {
