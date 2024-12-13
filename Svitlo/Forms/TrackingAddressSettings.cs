@@ -39,7 +39,7 @@ namespace Svitlo.Forms
         private async void Save_Click(object sender, EventArgs e)
         {
             //2 метода запрос делать когда меняем ичейку 2 когда делаем уже само сохранения
-            MessageBox.Show(dataGridView1.Rows[0].Cells[4].Value.ToString());
+            //MessageBox.Show(dataGridView1.Rows[0].Cells[4].Value.ToString());
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(dataGridView1.Rows[i].Cells[4].Value.ToString().Trim()) != dataObjResidence.GetAll().Find(x => x.Name == dataGridView1.Rows[i].Cells[0].Value).IsFollowing)

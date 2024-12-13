@@ -1,5 +1,6 @@
 ﻿using Svitlo.ObjectModels;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics.Eventing.Reader;
@@ -112,9 +113,8 @@ namespace Svitlo.Component
             {
                 if(currentData != temp[2].data.ToString())
                 {
-                    currentData = temp[2].data.ToString();
-                    ParsingHTMLDoccument();
-                    notifyIcon.ShowBalloonTip(2000,$"Svitlo ({followingObject.Name})","Данні оновлено",ToolTipIcon.Info);
+                    //currentData = temp[2].data.ToString();
+                    ParsingHTMLDoccument(temp[2].data.ToString());
                 }
             }
             else
@@ -122,28 +122,46 @@ namespace Svitlo.Component
                 return;
             }
         }
-        private void ParsingHTMLDoccument()
+        private void ParsingHTMLDoccument(string obj)
         {
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
-            htmlDocument.LoadHtml(currentData);
+            htmlDocument.LoadHtml(obj);
             var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day']");
             TimeOnly time = new TimeOnly(00, 00);
-            currentDicssonect.Clear() ;
+            ListDictionary temp = new ListDictionary();
+            //currentDicssonect.Clear() ;
             for (int i = 0; i < tableNode.Count; i++)
             {
                 if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
                 {
-                    currentDicssonect.Add(time.ToString("HH:mm"), "-");
+                    temp.Add(time.ToString("HH:mm"), "-");
                 }
                 else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
                 {
-                    currentDicssonect.Add(time.ToString("HH:mm"), "+");
+                    temp.Add(time.ToString("HH:mm"), "+");
                 }
                 else
                 {
-                    currentDicssonect.Add(time.ToString("HH:mm"), "+-");
+                    temp.Add(time.ToString("HH:mm"), "+-");
                 }
                 time = time.AddHours(1);
+            }
+            if (currentDicssonect == null)
+            {
+                currentDicssonect = temp;
+                notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Данні оновлено", ToolTipIcon.Info);
+            }
+            else
+            {
+                if (currentDicssonect.Equals(temp))
+                {
+                    return;
+                }
+                else
+                {
+                    currentDicssonect = temp;
+                    notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Данні оновлено", ToolTipIcon.Info);
+                }
             }
         }
         private  void SetTimerUpdate()

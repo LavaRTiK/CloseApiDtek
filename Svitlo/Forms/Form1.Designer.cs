@@ -151,11 +151,13 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.BackgroundColor = SystemColors.Control;
+            dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(12, 123);
+            dataGridView1.Location = new Point(33, 144);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(764, 271);
+            dataGridView1.Size = new Size(718, 167);
             dataGridView1.TabIndex = 12;
             // 
             // Date
@@ -286,7 +288,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(527, 94);
+            button4.Location = new Point(562, 94);
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 19;
@@ -307,6 +309,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(796, 451);
             Controls.Add(labelIndicatorCheck);
             Controls.Add(button4);

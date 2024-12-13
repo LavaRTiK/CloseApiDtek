@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
+            Save = new Button();
+            checkBoxAutoStartUp = new CheckBox();
+            label1 = new Label();
             AddressName = new DataGridViewTextBoxColumn();
             City = new DataGridViewTextBoxColumn();
             Street = new DataGridViewTextBoxColumn();
             House = new DataGridViewTextBoxColumn();
             Following = new DataGridViewCheckBoxColumn();
-            Save = new Button();
-            checkBoxAutoStartUp = new CheckBox();
-            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -51,37 +51,6 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(579, 177);
             dataGridView1.TabIndex = 0;
-            // 
-            // AddressName
-            // 
-            AddressName.HeaderText = "Назва";
-            AddressName.Name = "AddressName";
-            AddressName.ReadOnly = true;
-            // 
-            // City
-            // 
-            City.HeaderText = "Город";
-            City.Name = "City";
-            City.ReadOnly = true;
-            // 
-            // Street
-            // 
-            Street.HeaderText = "Вулиця";
-            Street.Name = "Street";
-            Street.ReadOnly = true;
-            // 
-            // House
-            // 
-            House.HeaderText = "Будинок";
-            House.Name = "House";
-            House.ReadOnly = true;
-            // 
-            // Following
-            // 
-            Following.HeaderText = "Отслеживать";
-            Following.Name = "Following";
-            Following.Resizable = DataGridViewTriState.True;
-            Following.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // Save
             // 
@@ -112,6 +81,37 @@
             label1.TabIndex = 3;
             label1.Text = "Налаштування";
             // 
+            // AddressName
+            // 
+            AddressName.HeaderText = "Назва";
+            AddressName.Name = "AddressName";
+            AddressName.ReadOnly = true;
+            // 
+            // City
+            // 
+            City.HeaderText = "Город";
+            City.Name = "City";
+            City.ReadOnly = true;
+            // 
+            // Street
+            // 
+            Street.HeaderText = "Вулиця";
+            Street.Name = "Street";
+            Street.ReadOnly = true;
+            // 
+            // House
+            // 
+            House.HeaderText = "Будинок";
+            House.Name = "House";
+            House.ReadOnly = true;
+            // 
+            // Following
+            // 
+            Following.HeaderText = "Слідкувати";
+            Following.Name = "Following";
+            Following.Resizable = DataGridViewTriState.True;
+            Following.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
             // TrackingAddressSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -133,13 +133,13 @@
         #endregion
 
         private DataGridView dataGridView1;
+        private Button Save;
+        private CheckBox checkBoxAutoStartUp;
+        private Label label1;
         private DataGridViewTextBoxColumn AddressName;
         private DataGridViewTextBoxColumn City;
         private DataGridViewTextBoxColumn Street;
         private DataGridViewTextBoxColumn House;
         private DataGridViewCheckBoxColumn Following;
-        private Button Save;
-        private CheckBox checkBoxAutoStartUp;
-        private Label label1;
     }
 }
