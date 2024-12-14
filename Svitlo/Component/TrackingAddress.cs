@@ -146,14 +146,14 @@ namespace Svitlo.Component
                 }
                 time = time.AddHours(1);
             }
-            if (currentDicssonect == null)
+            if (currentDicssonect.Count == 0)
             {
                 currentDicssonect = temp;
                 notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Данні оновлено", ToolTipIcon.Info);
             }
             else
             {
-                if (currentDicssonect.Equals(temp))
+                if (СomparisonDissconectAddress(temp))
                 {
                     return;
                 }
@@ -163,6 +163,17 @@ namespace Svitlo.Component
                     notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Данні оновлено", ToolTipIcon.Info);
                 }
             }
+        }
+        private bool СomparisonDissconectAddress(ListDictionary temp)
+        {
+            foreach (var key in currentDicssonect.Keys)
+            {
+                if (!temp[key].Equals(currentDicssonect[key]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         private  void SetTimerUpdate()
         {

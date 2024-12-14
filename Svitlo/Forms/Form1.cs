@@ -6,6 +6,8 @@ using Svitlo.Component;
 using Svitlo.ObjectModels;
 using Timer = System.Windows.Forms.Timer;
 using Svitlo.Forms;
+using System.Collections.Specialized;
+using System.Runtime.CompilerServices;
 /*
   Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
   Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
@@ -20,11 +22,10 @@ using Svitlo.Forms;
   сохран даные сделать индикатор запроса //ok
   посмотреть как сделать автозапуск для програмы:  2 сбособа через регистр или добавления в  startup якрлык //ok
   изображения настроки, таv будет и авто запуск в углу //ok
-  перевровірити tracking робить лишне оновлення даних коли робиться запыт upadate в TrackingAddress
-  //дизайн та удобства
-  сделать собщения меньше upadatetracking
+  перевровірити tracking робить лишне оновлення даних коли робиться запыт upadate в TrackingAddress //ok
+  сделать собщения меньше
   удалить все textarea  сделать grid основой убрать фон , сделать вместо +- знак молнии по возможности , сделать по больше
-  крестик сворчивет прогрмаму ()
+  крестик сворчивет прогрмаму () //ok
   сделать грид на пару дней в перед переписования сheck (сделать в последню очередь) :)
   доделать возможное отключения света //ok
   grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
@@ -48,6 +49,7 @@ namespace Svitlo
         private string? city { get; set; }
         private string? street { get; set; }
         private string? house { get; set; }
+        private bool isCloseFromContextMenu = false;
         private DataLoderAPI dataLoderAPI = new DataLoderAPI();
 
         private DataObjResidence dataObjResidence = new DataObjResidence();
@@ -60,7 +62,7 @@ namespace Svitlo
             labelIndicatorCheck.Visible = false;
             labelIndicatorCheck.Text = "Виконуєтья запит";
             await SaveBufferComboBoxUpdate();
-            button4.Visible = false;
+            button4.Visible = true;
 
             CheakTrackingUpadate();
         }
@@ -238,17 +240,17 @@ namespace Svitlo
         private async void button2_Click(object sender, EventArgs e)
         {
             //label1.Text = $"id={idCity};idstreet={idStreet}idhouse={idHouse}";
-            readCity.Enabled= false;
-            readStreet.Enabled= false;
-            readHouse.Enabled= false;
+            readCity.Enabled = false;
+            readStreet.Enabled = false;
+            readHouse.Enabled = false;
             SaveBufferComboBox.Enabled = false;
-            labelIndicatorCheck.Visible= true;
+            labelIndicatorCheck.Visible = true;
             await Check();
             readCity.Enabled = true;
             readStreet.Enabled = true;
             readHouse.Enabled = true;
             SaveBufferComboBox.Enabled = true;
-            labelIndicatorCheck.Visible= false;
+            labelIndicatorCheck.Visible = false;
         }
 
         private async void button3_Click(object sender, EventArgs e)
@@ -421,6 +423,7 @@ namespace Svitlo
 
         private void закритиToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            isCloseFromContextMenu = true;
             this.Close();
         }
 
@@ -435,17 +438,26 @@ namespace Svitlo
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Application.ExecutablePath);
-            MessageBox.Show(Path.GetDirectoryName(Application.ExecutablePath));
-            AutoStartUp autoStartUp = new AutoStartUp();
-            autoStartUp.CreateShortcut();
-            await Task.Delay(5000);
+            MessageBox.Show(Focused.ToString());
         }
+        //test
+        public bool СomparisonDissconectAddress(ListDictionary oneList, ListDictionary twoList)
+        {
+            foreach (var key in oneList.Keys)
+            {
+                if (!twoList[key].Equals(oneList[key]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        //test
         private void CheakTrackingUpadate()
         {
             foreach (var item in dataResidencesList)
             {
-                if(item.IsFollowing == true)
+                if (item.IsFollowing == true)
                 {
                     if (currentTraking.Any(x => x.Name == item.Name))
                     {
@@ -457,11 +469,11 @@ namespace Svitlo
                         currentTraking.Add(trackingAddress);
                         trackingAddress.StartFollowing();
                     }
-                    
+
                 }
                 else
                 {
-                    if(currentTraking.Any(x => x.Name == item.Name))
+                    if (currentTraking.Any(x => x.Name == item.Name))
                     {
                         var temp = currentTraking.Find(x => x.Name == item.Name);
                         temp.StopFollowing();
@@ -470,6 +482,33 @@ namespace Svitlo
                 }
             }
             //MessageBox.Show(currentTraking.Count.ToString());
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(WindowState == FormWindowState.Minimized)
+            {
+                e.Cancel = false;
+                return;
+            }
+            else
+            {
+                if (WindowState == FormWindowState.Normal)
+                {
+                    if (isCloseFromContextMenu)
+                    {
+                        e.Cancel = false;
+                        return;
+                    }
+                    else
+                    {
+                        WindowState = FormWindowState.Minimized;
+                        Hide();
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+            }
         }
         //test
     }

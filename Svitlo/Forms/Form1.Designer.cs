@@ -278,11 +278,11 @@
             // 
             // buttonSettings
             // 
-            buttonSettings.Location = new Point(758, 9);
+            buttonSettings.Image = Properties.Resources.rb_6328__2_;
+            buttonSettings.Location = new Point(756, 5);
             buttonSettings.Name = "buttonSettings";
-            buttonSettings.Size = new Size(30, 23);
+            buttonSettings.Size = new Size(32, 30);
             buttonSettings.TabIndex = 18;
-            buttonSettings.Text = "button4";
             buttonSettings.UseVisualStyleBackColor = true;
             buttonSettings.Click += buttonSettings_Click;
             // 
@@ -328,8 +328,10 @@
             Controls.Add(labelCity);
             Controls.Add(readCity);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Form1";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             Resize += Form1_Resize;
             ((System.ComponentModel.ISupportInitialize)errorReadCity).EndInit();
