@@ -28,11 +28,11 @@ using System.Globalization;
   перевровірити tracking робить лишне оновлення даних коли робиться запыт upadate в TrackingAddress //ok
   сделать собщения меньше
   удалить все textarea  сделать grid основой убрать фон , сделать вместо +- знак молнии по возможности , сделать по больше
-  авто обновления преложения
-  сделать свои собщения хз
+  авто обновления преложения //через publish git https://www.youtube.com/watch?v=iMEGtrjMXPU  или самописный
+  сделать свои собщения //хз выбор собщениий в настройках 
   телеграм бота() хз
   крестик сворчивет прогрмаму () //ok
-  сделать грид на пару дней в перед переписования сheck (сделать в последню очередь) :)
+  сделать грид на пару дней в перед переписования сheck (сделать в последню очередь) //ok
   доделать возможное отключения света //ok
   grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
  */
@@ -62,15 +62,6 @@ namespace Svitlo
         private List<ObjResidence> dataResidencesList;
         private async void Form1_Load(object sender, EventArgs e)
         {
-            //test
-            //dataGridViewTest.Rows[0].Cells[16].Value = "X"; // Нд 15.12 в 16:00
-            //dataGridViewTest.Rows[0].Cells[17].Value = "X"; // Нд 15.12 в 17:00
-            //dataGridViewTest.Rows[1].Cells[8].Value = "X";  // Пн 16.12 в 08:00
-            //dataGridViewTest.Rows[1].Cells[12].Value = "X"; // Пн 16.12 в 12:00
-            //dataGridViewTest.Rows[1].Cells[13].Value = "X"; // Пн 16.12 в 13:00
-            //dataGridViewTest.Rows[1].Cells[18].Value = "X"; // Пн 16.12 в 18:00
-
-            //test
             notifyIcon1.BalloonTipText = "Svitlo звернуто";
             notifyIcon1.Text = "Svitlo";
             CancelSave.Visible = false;
@@ -223,30 +214,13 @@ namespace Svitlo
                 //cобщения
                 //Console.WriteLine();
             }
-
             var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day' or @class='disconnection-detailed-table-cell cell  no_disconnection other_day']");
             if (tableNode == null)
             {
                 return;
             }
-            TimeOnly time = new TimeOnly(00, 00);
-            for (int i = 0; i < tableNode.Count; i++)
-            {
-                if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
-                {
-                    dataGridView1.Rows.Add(time.ToString("HH:mm"), "-");
-                }
-                else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
-                {
-                    dataGridView1.Rows.Add(time.ToString("HH:mm"), "+");
-                }
-                else
-                {
-                    dataGridView1.Rows.Add(time.ToString("HH:mm"), "+-");
-                }
-                time = time.AddHours(1);
-            }
             //test newgrid
+            //добавить ище один отрибут other_day confirm
             int counterTabel = 0;
             try
             {
@@ -278,29 +252,6 @@ namespace Svitlo
             catch {
                 MessageBox.Show("Помилка заповнення таблиці", "Error");
             }
-            //for (int r = 0; r < 1; r++)
-            //{
-            //    for (int i = 0; i < tableNode.Count; i++)
-            //    {
-            //        if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
-            //        {
-            //        }
-            //        else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
-            //        {
-            //            dataGridViewTest.Rows[r].Cells[i].Value = "+";
-            //        }
-            //        else
-            //        {
-            //            dataGridViewTest.Rows[r].Cells[i].Value = "+-";
-            //        }
-
-            //    }
-            //}
-            //test
-            //Ñâîéñòî contains íå ñòðîãîå è èùåò êëàñ äàæå åñëè â åãî ïîä ñòðîêå èùå åñòü êàêîé-òî êëàñ
-            //var rows = tableNode.SelectNodes(".//div[contains(@class, 'disconnection-detailed-table-cell')]");
-            //MessageBox.Show("ëÿ îòðàáîòàë");
-
         }
 
         private async void button2_Click(object sender, EventArgs e)

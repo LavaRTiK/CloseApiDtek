@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            Save = new Button();
-            checkBoxAutoStartUp = new CheckBox();
-            label1 = new Label();
             AddressName = new DataGridViewTextBoxColumn();
             City = new DataGridViewTextBoxColumn();
             Street = new DataGridViewTextBoxColumn();
             House = new DataGridViewTextBoxColumn();
             Following = new DataGridViewCheckBoxColumn();
+            Save = new Button();
+            checkBoxAutoStartUp = new CheckBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -51,35 +51,6 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(579, 177);
             dataGridView1.TabIndex = 0;
-            // 
-            // Save
-            // 
-            Save.Location = new Point(516, 264);
-            Save.Name = "Save";
-            Save.Size = new Size(75, 23);
-            Save.TabIndex = 1;
-            Save.Text = "Зберегти";
-            Save.UseVisualStyleBackColor = true;
-            Save.Click += Save_Click;
-            // 
-            // checkBoxAutoStartUp
-            // 
-            checkBoxAutoStartUp.AutoSize = true;
-            checkBoxAutoStartUp.Location = new Point(12, 40);
-            checkBoxAutoStartUp.Name = "checkBoxAutoStartUp";
-            checkBoxAutoStartUp.Size = new Size(128, 19);
-            checkBoxAutoStartUp.TabIndex = 2;
-            checkBoxAutoStartUp.Text = "Автозавантаження";
-            checkBoxAutoStartUp.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(248, 19);
-            label1.Name = "label1";
-            label1.Size = new Size(89, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Налаштування";
             // 
             // AddressName
             // 
@@ -111,6 +82,35 @@
             Following.Name = "Following";
             Following.Resizable = DataGridViewTriState.True;
             Following.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Save
+            // 
+            Save.Location = new Point(516, 264);
+            Save.Name = "Save";
+            Save.Size = new Size(75, 23);
+            Save.TabIndex = 1;
+            Save.Text = "Зберегти";
+            Save.UseVisualStyleBackColor = true;
+            Save.Click += Save_Click;
+            // 
+            // checkBoxAutoStartUp
+            // 
+            checkBoxAutoStartUp.AutoSize = true;
+            checkBoxAutoStartUp.Location = new Point(12, 40);
+            checkBoxAutoStartUp.Name = "checkBoxAutoStartUp";
+            checkBoxAutoStartUp.Size = new Size(128, 19);
+            checkBoxAutoStartUp.TabIndex = 2;
+            checkBoxAutoStartUp.Text = "Автозавантаження";
+            checkBoxAutoStartUp.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(248, 19);
+            label1.Name = "label1";
+            label1.Size = new Size(89, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Налаштування";
             // 
             // TrackingAddressSettings
             // 

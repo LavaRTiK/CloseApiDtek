@@ -32,7 +32,7 @@ namespace Svitlo.Forms
             }
             else
             {
-                checkBoxAutoStartUp.Checked=false;    
+                checkBoxAutoStartUp.Checked = false;
             }
         }
 
@@ -64,6 +64,11 @@ namespace Svitlo.Forms
                 autoStartUp.DeleteShortcut();
             }
             DialogResult = DialogResult.OK;
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

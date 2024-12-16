@@ -40,9 +40,6 @@
             readHouse = new ComboBox();
             errorReadHouse = new ErrorProvider(components);
             button2 = new Button();
-            dataGridView1 = new DataGridView();
-            Date = new DataGridViewTextBoxColumn();
-            test = new DataGridViewTextBoxColumn();
             SaveBuffer = new Label();
             SaveBufferComboBox = new ComboBox();
             SaveBufferContextMenuStrip = new ContextMenuStrip(components);
@@ -63,7 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SaveBufferContextMenuStrip.SuspendLayout();
             contextMenuStripNotify.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTest).BeginInit();
@@ -150,27 +146,6 @@
             button2.Text = "По Адресу";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.BackgroundColor = SystemColors.Control;
-            dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(12, 67);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(244, 167);
-            dataGridView1.TabIndex = 12;
-            // 
-            // Date
-            // 
-            Date.HeaderText = "Date";
-            Date.Name = "Date";
-            // 
-            // test
-            // 
-            test.HeaderText = "test";
-            test.Name = "test";
             // 
             // SaveBuffer
             // 
@@ -336,7 +311,6 @@
             Controls.Add(button3);
             Controls.Add(SaveBufferComboBox);
             Controls.Add(SaveBuffer);
-            Controls.Add(dataGridView1);
             Controls.Add(button2);
             Controls.Add(readHouse);
             Controls.Add(labelHouse);
@@ -355,7 +329,6 @@
             ((System.ComponentModel.ISupportInitialize)errorReadCity).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             SaveBufferContextMenuStrip.ResumeLayout(false);
             contextMenuStripNotify.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewTest).EndInit();
@@ -374,9 +347,6 @@
         private Label labelHouse;
         private ErrorProvider errorReadHouse;
         private Button button2;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Date;
-        private DataGridViewTextBoxColumn test;
         private ComboBox SaveBufferComboBox;
         private Label SaveBuffer;
         private Button button3;
