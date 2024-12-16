@@ -59,12 +59,14 @@
             buttonSettings = new Button();
             button4 = new Button();
             labelIndicatorCheck = new Label();
+            dataGridViewTest = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)errorReadCity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadStreet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorReadHouse).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SaveBufferContextMenuStrip.SuspendLayout();
             contextMenuStripNotify.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewTest).BeginInit();
             SuspendLayout();
             // 
             // readCity
@@ -155,9 +157,9 @@
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, test });
-            dataGridView1.Location = new Point(33, 144);
+            dataGridView1.Location = new Point(12, 67);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(718, 167);
+            dataGridView1.Size = new Size(244, 167);
             dataGridView1.TabIndex = 12;
             // 
             // Date
@@ -305,12 +307,27 @@
             labelIndicatorCheck.TabIndex = 20;
             labelIndicatorCheck.Text = "label2";
             // 
+            // dataGridViewTest
+            // 
+            dataGridViewTest.AllowUserToAddRows = false;
+            dataGridViewTest.AllowUserToDeleteRows = false;
+            dataGridViewTest.BackgroundColor = SystemColors.Control;
+            dataGridViewTest.BorderStyle = BorderStyle.None;
+            dataGridViewTest.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewTest.Location = new Point(12, 141);
+            dataGridViewTest.Name = "dataGridViewTest";
+            dataGridViewTest.ReadOnly = true;
+            dataGridViewTest.Size = new Size(776, 221);
+            dataGridViewTest.TabIndex = 21;
+            dataGridViewTest.CellPainting += DataGridView_CellPainting;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(796, 451);
+            ClientSize = new Size(798, 451);
+            Controls.Add(dataGridViewTest);
             Controls.Add(labelIndicatorCheck);
             Controls.Add(button4);
             Controls.Add(buttonSettings);
@@ -327,6 +344,7 @@
             Controls.Add(labelStreet);
             Controls.Add(labelCity);
             Controls.Add(readCity);
+            ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
@@ -340,6 +358,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             SaveBufferContextMenuStrip.ResumeLayout(false);
             contextMenuStripNotify.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewTest).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -374,5 +393,6 @@
         private Button buttonSettings;
         private Button button4;
         private Label labelIndicatorCheck;
+        private DataGridView dataGridViewTest;
     }
 }

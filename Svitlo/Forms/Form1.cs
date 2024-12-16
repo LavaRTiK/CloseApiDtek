@@ -8,6 +8,9 @@ using Timer = System.Windows.Forms.Timer;
 using Svitlo.Forms;
 using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
+using System.Globalization;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
 /*
   Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
   Подзсказка для елемента savebufferComboBox (выдает которко адрес когда наводишся указателем) // ok
@@ -25,6 +28,9 @@ using System.Runtime.CompilerServices;
   перевровірити tracking робить лишне оновлення даних коли робиться запыт upadate в TrackingAddress //ok
   сделать собщения меньше
   удалить все textarea  сделать grid основой убрать фон , сделать вместо +- знак молнии по возможности , сделать по больше
+  авто обновления преложения
+  сделать свои собщения хз
+  телеграм бота() хз
   крестик сворчивет прогрмаму () //ok
   сделать грид на пару дней в перед переписования сheck (сделать в последню очередь) :)
   доделать возможное отключения света //ok
@@ -56,6 +62,15 @@ namespace Svitlo
         private List<ObjResidence> dataResidencesList;
         private async void Form1_Load(object sender, EventArgs e)
         {
+            //test
+            //dataGridViewTest.Rows[0].Cells[16].Value = "X"; // Нд 15.12 в 16:00
+            //dataGridViewTest.Rows[0].Cells[17].Value = "X"; // Нд 15.12 в 17:00
+            //dataGridViewTest.Rows[1].Cells[8].Value = "X";  // Пн 16.12 в 08:00
+            //dataGridViewTest.Rows[1].Cells[12].Value = "X"; // Пн 16.12 в 12:00
+            //dataGridViewTest.Rows[1].Cells[13].Value = "X"; // Пн 16.12 в 13:00
+            //dataGridViewTest.Rows[1].Cells[18].Value = "X"; // Пн 16.12 в 18:00
+
+            //test
             notifyIcon1.BalloonTipText = "Svitlo звернуто";
             notifyIcon1.Text = "Svitlo";
             CancelSave.Visible = false;
@@ -63,7 +78,7 @@ namespace Svitlo
             labelIndicatorCheck.Text = "Виконуєтья запит";
             await SaveBufferComboBoxUpdate();
             button4.Visible = true;
-
+            DrawTable();
             CheakTrackingUpadate();
         }
         private async void readCity_TextChanged(object sender, EventArgs e)
@@ -209,7 +224,7 @@ namespace Svitlo
                 //Console.WriteLine();
             }
 
-            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day']");
+            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day' or @class='disconnection-detailed-table-cell cell  no_disconnection other_day']");
             if (tableNode == null)
             {
                 return;
@@ -231,6 +246,57 @@ namespace Svitlo
                 }
                 time = time.AddHours(1);
             }
+            //test newgrid
+            int counterTabel = 0;
+            try
+            {
+                for (int r = 0; r < 7; r++)
+                {
+                    for (int i = 0; i < 24; i++)
+                    {
+                        if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
+                        {
+                            //dataGridViewTest.Rows[r].Cells[i].Value = "-";
+                        }
+                        else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
+                        {
+                            dataGridViewTest.Rows[r].Cells[i].Value = "+";
+                        }
+                        else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection other_day")
+                        {
+                            //dataGridViewTest.Rows[r].Cells[i].Value = "-";
+                        }
+                        else
+                        {
+                            dataGridViewTest.Rows[r].Cells[i].Value = "+-";
+                        }
+                        counterTabel++;
+
+                    }
+                }
+            }
+            catch {
+                MessageBox.Show("Помилка заповнення таблиці", "Error");
+            }
+            //for (int r = 0; r < 1; r++)
+            //{
+            //    for (int i = 0; i < tableNode.Count; i++)
+            //    {
+            //        if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
+            //        {
+            //        }
+            //        else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
+            //        {
+            //            dataGridViewTest.Rows[r].Cells[i].Value = "+";
+            //        }
+            //        else
+            //        {
+            //            dataGridViewTest.Rows[r].Cells[i].Value = "+-";
+            //        }
+
+            //    }
+            //}
+            //test
             //Ñâîéñòî contains íå ñòðîãîå è èùåò êëàñ äàæå åñëè â åãî ïîä ñòðîêå èùå åñòü êàêîé-òî êëàñ
             //var rows = tableNode.SelectNodes(".//div[contains(@class, 'disconnection-detailed-table-cell')]");
             //MessageBox.Show("ëÿ îòðàáîòàë");
@@ -438,7 +504,16 @@ namespace Svitlo
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Focused.ToString());
+            //"ddd d.M"
+            DateTime currentData = DateTime.Now;
+            string[] date = new string[7];
+            for (int i = 0; i < date.Length; i++) {
+                date[i] = currentData.AddDays(i).ToString("ddd d.M", CultureInfo.CreateSpecificCulture("ua-UA"));
+            }
+            foreach (var item in date)
+            {
+                MessageBox.Show(item);
+            }
         }
         //test
         public bool СomparisonDissconectAddress(ListDictionary oneList, ListDictionary twoList)
@@ -486,7 +561,7 @@ namespace Svitlo
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized)
             {
                 e.Cancel = false;
                 return;
@@ -508,6 +583,40 @@ namespace Svitlo
                         return;
                     }
                 }
+            }
+        }
+        private void DrawTable()
+        {
+            dataGridViewTest.RowHeadersWidth = 100;
+            dataGridViewTest.ColumnHeadersHeight = 60;
+            for (int i = 0; i < 24; i++)
+            {
+                string header = $"{i:00}:00";
+                dataGridViewTest.Columns.Add($"Col{i}", header);
+                dataGridViewTest.Columns[i].Width = 50;
+            }
+            DateTime currentData = DateTime.Now;
+            string[] days = new string[7];
+            for (int i = 0; i < days.Length; i++)
+            {
+                days[i] = currentData.AddDays(i).ToString("ddd d.M", CultureInfo.CreateSpecificCulture("ua-UA"));
+            }
+            foreach (string day in days)
+            {
+                dataGridViewTest.Rows.Add();
+                dataGridViewTest.Rows[dataGridViewTest.Rows.Count - 1].HeaderCell.Value = day;
+            }
+        }
+        //test
+        private void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            var cellValue = dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            if (cellValue != null && cellValue.ToString() == "X")
+            {
+                e.Graphics.FillRectangle(Brushes.Orange, e.CellBounds);
+                e.PaintContent(e.CellBounds);
+                e.Handled = true;
             }
         }
         //test
