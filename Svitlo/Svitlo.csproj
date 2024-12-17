@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="molnia.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
   </ItemGroup>
 
