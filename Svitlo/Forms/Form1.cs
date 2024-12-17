@@ -214,7 +214,7 @@ namespace Svitlo
                 //cобщения
                 //Console.WriteLine();
             }
-            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day' or @class='disconnection-detailed-table-cell cell  no_disconnection other_day']");
+            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day' or @class='disconnection-detailed-table-cell cell  no_disconnection other_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 other_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 other_day']");
             if (tableNode == null)
             {
                 return;
@@ -233,6 +233,10 @@ namespace Svitlo
                             //dataGridViewTest.Rows[r].Cells[i].Value = "-";
                         }
                         else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
+                        {
+                            dataGridViewTest.Rows[r].Cells[i].Value = "+";
+                        }
+                        else if (tableNode[counterTabel].Attributes[0].Value == "")
                         {
                             dataGridViewTest.Rows[r].Cells[i].Value = "+";
                         }
@@ -561,14 +565,15 @@ namespace Svitlo
         //test
         private void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-            var cellValue = dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            if (cellValue != null && cellValue.ToString() == "X")
-            {
-                e.Graphics.FillRectangle(Brushes.Orange, e.CellBounds);
-                e.PaintContent(e.CellBounds);
-                e.Handled = true;
-            }
+            //non 
+            //if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            //var cellValue = dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            //if (cellValue != null && cellValue.ToString() == "X")
+            //{
+            //    e.Graphics.FillRectangle(Brushes.Orange, e.CellBounds);
+            //    e.PaintContent(e.CellBounds);
+            //    e.Handled = true;
+            //}
         }
         //test
     }
