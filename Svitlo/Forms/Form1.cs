@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Reflection;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 /*
   Сделать отписку и подписку text_change для texbox сity street house запрос лишний city //ok
@@ -220,7 +221,6 @@ namespace Svitlo
                 return;
             }
             //test newgrid
-            //добавить ище один отрибут other_day confirm
             int counterTabel = 0;
             try
             {
@@ -236,7 +236,7 @@ namespace Svitlo
                         {
                             dataGridViewTest.Rows[r].Cells[i].Value = "+";
                         }
-                        else if (tableNode[counterTabel].Attributes[0].Value == "")
+                        else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 other_day")
                         {
                             dataGridViewTest.Rows[r].Cells[i].Value = "+";
                         }
@@ -565,6 +565,27 @@ namespace Svitlo
         //test
         private void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            var cellValue = dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            if (cellValue != null && cellValue.ToString() == "+")
+            {
+                var dataGridViewImageCell = new DataGridViewImageCell();
+                dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex] = dataGridViewImageCell;
+                dataGridViewImageCell.ImageLayout = DataGridViewImageCellLayout.Stretch;
+                dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Properties.Resources.table_molnia;
+                e.Handled = true;
+            }
+            else if (cellValue != null && cellValue.ToString() == "+-")
+            {
+                //var img = new Bitmap(Properties.Resources.table_molnia);
+                var dataGridViewImageCell = new DataGridViewImageCell();
+                dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex] = dataGridViewImageCell;
+                dataGridViewImageCell.ImageLayout = DataGridViewImageCellLayout.Stretch;
+                dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Properties.Resources.table_molnia_maybe;
+                e.Handled = true;
+            }
+
+            //}
             //non 
             //if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             //var cellValue = dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;

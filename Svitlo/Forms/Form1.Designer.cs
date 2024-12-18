@@ -291,7 +291,6 @@
             dataGridViewTest.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewTest.Location = new Point(12, 141);
             dataGridViewTest.Name = "dataGridViewTest";
-            dataGridViewTest.ReadOnly = true;
             dataGridViewTest.Size = new Size(776, 221);
             dataGridViewTest.TabIndex = 21;
             dataGridViewTest.CellPainting += DataGridView_CellPainting;
