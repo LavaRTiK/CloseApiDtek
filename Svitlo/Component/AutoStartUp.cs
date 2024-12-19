@@ -9,6 +9,9 @@ namespace Svitlo.Component
 {
     public class AutoStartUp
     {
+        /// <summary>
+        /// Створює ярлик 
+        /// </summary>
         public void CreateShortcut()
         {
             string systemStartUp = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
