@@ -37,6 +37,9 @@
             Save = new Button();
             checkBoxAutoStartUp = new CheckBox();
             label1 = new Label();
+            labelTelegram = new Label();
+            labelTelegramStatus = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -112,11 +115,41 @@
             label1.TabIndex = 3;
             label1.Text = "Налаштування";
             // 
+            // labelTelegram
+            // 
+            labelTelegram.AutoSize = true;
+            labelTelegram.Location = new Point(437, 28);
+            labelTelegram.Name = "labelTelegram";
+            labelTelegram.Size = new Size(59, 15);
+            labelTelegram.TabIndex = 4;
+            labelTelegram.Text = "Telegram:";
+            // 
+            // labelTelegramStatus
+            // 
+            labelTelegramStatus.AutoSize = true;
+            labelTelegramStatus.Location = new Point(499, 28);
+            labelTelegramStatus.Name = "labelTelegramStatus";
+            labelTelegramStatus.Size = new Size(65, 15);
+            labelTelegramStatus.TabIndex = 5;
+            labelTelegramStatus.Text = "Discconect";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(450, 46);
+            button1.Name = "button1";
+            button1.Size = new Size(99, 23);
+            button1.TabIndex = 6;
+            button1.Text = "Підключити";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // TrackingAddressSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(603, 299);
+            Controls.Add(button1);
+            Controls.Add(labelTelegramStatus);
+            Controls.Add(labelTelegram);
             Controls.Add(label1);
             Controls.Add(checkBoxAutoStartUp);
             Controls.Add(Save);
@@ -141,5 +174,8 @@
         private DataGridViewTextBoxColumn Street;
         private DataGridViewTextBoxColumn House;
         private DataGridViewCheckBoxColumn Following;
+        private Label labelTelegram;
+        private Label labelTelegramStatus;
+        private Button button1;
     }
 }

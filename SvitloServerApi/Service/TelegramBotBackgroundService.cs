@@ -2,6 +2,7 @@
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SvitloServerApi.Service
 {
@@ -28,6 +29,23 @@ namespace SvitloServerApi.Service
         {
             if(update.Message is { } message && message.Text is { })
             {
+                if(message.Text == "/start")
+                {
+                    var inlineKeyboard = new InlineKeyboardMarkup(new[]
+                    {
+                        new[]
+                        {
+                            InlineKeyboardButton.WithUrl("GitHub","https://github.com/LavaRTiK/CloseApiDtek")
+                        }
+                    });
+                    await botClient.SendMessage(
+                        chatId:message.Chat.Id,
+                        text:"Цей бот працює із кліентом Svitlo",
+                        replyMarkup: inlineKeyboard,
+                        cancellationToken:cancellationToken
+                        
+                    ); 
+                }
                 Console.WriteLine($"Користувач написав {message.Text}");
 
                 await botClient.SendMessage(
