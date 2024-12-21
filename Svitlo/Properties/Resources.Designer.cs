@@ -113,6 +113,16 @@ namespace Svitlo.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TelegramQR {
+            get {
+                object obj = ResourceManager.GetObject("TelegramQR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap test_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("test-removebg-preview", resourceCulture);

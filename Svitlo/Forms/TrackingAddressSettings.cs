@@ -65,10 +65,17 @@ namespace Svitlo.Forms
             }
             DialogResult = DialogResult.OK;
         }
-
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            ConnectToTelegram connectToTelegram = new ConnectToTelegram();
+            if(connectToTelegram.ShowDialog() == DialogResult.OK)
+            {
+                //ТУТ ЧТО-ТО ДЕЛАЕМ
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

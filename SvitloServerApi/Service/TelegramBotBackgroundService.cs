@@ -35,7 +35,8 @@ namespace SvitloServerApi.Service
                     {
                         new[]
                         {
-                            InlineKeyboardButton.WithUrl("GitHub","https://github.com/LavaRTiK/CloseApiDtek")
+                            InlineKeyboardButton.WithUrl("GitHub","https://github.com/LavaRTiK/CloseApiDtek"),
+                            InlineKeyboardButton.WithCallbackData("Sivitlo Connect","connect-app-svitlo"),
                         }
                     });
                     await botClient.SendMessage(
@@ -46,13 +47,22 @@ namespace SvitloServerApi.Service
                         
                     ); 
                 }
-                Console.WriteLine($"Користувач написав {message.Text}");
-
-                await botClient.SendMessage(
-                    chatId: message.Chat.Id,
-                    text: $"Привіт! Ви написали:{message.Text} ваш id : {message.Chat.Id}",
-                    cancellationToken: cancellationToken
-                );
+            }
+            if (update.CallbackQuery is { } callbackQuery)
+            {
+                if (callbackQuery.Data == "connect-app-svitlo")
+                {
+                    await botClient.AnswerCallbackQuery(
+                        callbackQuery.Id,
+                        "Ви натиснули кнопку Sivitlo Connect!",
+                        cancellationToken: cancellationToken
+                    );
+                    await botClient.SendMessage(
+                        chatId: callbackQuery.Message.Chat.Id,
+                        text: $"Уведіть у додаток код:{callbackQuery.Message.Chat.Id}",
+                        cancellationToken: cancellationToken
+                    );
+                }
             }
         }
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception,CancellationToken cancellationToken)
