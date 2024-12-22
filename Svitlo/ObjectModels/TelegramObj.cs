@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Svitlo.ObjectModels
 {
-    internal class TelegramObj
+    public class TelegramObj
     {
-        public long chatId;
+        public long ?chatId {  get; set; }
+        public TelegramObj()
+        {
+            chatId = null;
+        }
+        public TelegramObj(long chatId) {
+            this.chatId = chatId;
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace Svitlo.Component
             }
             using (StreamReader sr = new StreamReader("telegram.txt"))
             {
+                MessageBox.Show(telegramObj.chatId.ToString());
                 string data = await sr.ReadToEndAsync();
                 if (!string.IsNullOrWhiteSpace(data))
                 {
@@ -52,6 +53,18 @@ namespace Svitlo.Component
                 string data = JsonSerializer.Serialize(telegramObj, options);
                 await sw.WriteAsync(data);  
             }
+        }
+        public void Remove()
+        {
+            telegramObj = null;
+        }
+        public void Insert(TelegramObj obj)
+        {
+            telegramObj = obj;
+        }
+        public TelegramObj GetTelegram()
+        {
+            return telegramObj;
         }
     }
 }

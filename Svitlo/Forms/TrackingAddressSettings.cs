@@ -15,6 +15,7 @@ namespace Svitlo.Forms
     {
         AutoStartUp autoStartUp = new AutoStartUp();
         DataObjResidence dataObjResidence = new DataObjResidence();
+        DataObjTelegram dataObjTelegram = new DataObjTelegram();
         public TrackingAddressSettings()
         {
             InitializeComponent();
@@ -33,6 +34,23 @@ namespace Svitlo.Forms
             else
             {
                 checkBoxAutoStartUp.Checked = false;
+            }
+            if (dataObjTelegram.GetTelegram() != null)
+            {
+                labelTelegramStatus.Text = "Connect";
+                buttonTegramConnect.Visible = false;
+                Button button = new Button();
+                button.Text = "Disconect";
+                button.Click += async (object sender, EventArgs e) =>
+                {
+                    dataObjTelegram.Remove();
+                    await dataObjTelegram.LoadDataAsync();
+                    button.Visible = false;
+                    buttonTegramConnect.Visible = true;
+                    labelTelegramStatus.Text = "Disconect";
+                };
+                button.Location = buttonTegramConnect.Location;
+                Controls.Add(button);
             }
         }
 
@@ -70,7 +88,7 @@ namespace Svitlo.Forms
             ConnectToTelegram connectToTelegram = new ConnectToTelegram();
             if(connectToTelegram.ShowDialog() == DialogResult.OK)
             {
-                //ТУТ ЧТО-ТО ДЕЛАЕМ
+                labelTelegramStatus.Text = "Connect";
             }
             else
             {

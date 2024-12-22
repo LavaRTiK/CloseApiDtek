@@ -39,7 +39,7 @@
             label1 = new Label();
             labelTelegram = new Label();
             labelTelegramStatus = new Label();
-            button1 = new Button();
+            buttonTegramConnect = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -133,22 +133,22 @@
             labelTelegramStatus.TabIndex = 5;
             labelTelegramStatus.Text = "Discconect";
             // 
-            // button1
+            // buttonTegramConnect
             // 
-            button1.Location = new Point(450, 46);
-            button1.Name = "button1";
-            button1.Size = new Size(99, 23);
-            button1.TabIndex = 6;
-            button1.Text = "Підключити";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonTegramConnect.Location = new Point(450, 46);
+            buttonTegramConnect.Name = "buttonTegramConnect";
+            buttonTegramConnect.Size = new Size(99, 23);
+            buttonTegramConnect.TabIndex = 6;
+            buttonTegramConnect.Text = "Підключити";
+            buttonTegramConnect.UseVisualStyleBackColor = true;
+            buttonTegramConnect.Click += button1_Click;
             // 
             // TrackingAddressSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(603, 299);
-            Controls.Add(button1);
+            Controls.Add(buttonTegramConnect);
             Controls.Add(labelTelegramStatus);
             Controls.Add(labelTelegram);
             Controls.Add(label1);
@@ -177,6 +177,6 @@
         private DataGridViewCheckBoxColumn Following;
         private Label labelTelegram;
         private Label labelTelegramStatus;
-        private Button button1;
+        private Button buttonTegramConnect;
     }
 }

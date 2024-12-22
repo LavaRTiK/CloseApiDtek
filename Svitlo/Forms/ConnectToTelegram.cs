@@ -1,4 +1,5 @@
 ﻿using Svitlo.Component;
+using Svitlo.ObjectModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace Svitlo.Forms
     public partial class ConnectToTelegram : Form
     {
         TelegramAPI telegramAPI = new TelegramAPI();
+        DataObjTelegram dataObjTelegram = new DataObjTelegram();
         public ConnectToTelegram()
         {
             InitializeComponent();
@@ -24,7 +26,7 @@ namespace Svitlo.Forms
             buttonConnect.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (long.TryParse(textBox1.Text,out long chatId))
             {
@@ -33,7 +35,9 @@ namespace Svitlo.Forms
             DialogResult result = MessageBox.Show("Ви отримали повідомлення?", "Перевірка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                MessageBox.Show("DA");
+                dataObjTelegram.Insert(new TelegramObj(chatId));
+                await dataObjTelegram.LoadDataAsync();
+                DialogResult = DialogResult.OK;
             }
             else
             {
