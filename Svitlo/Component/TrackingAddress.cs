@@ -14,6 +14,9 @@ using System.Windows.Forms;
 
 namespace Svitlo.Component
 {
+    enum DissconnectText
+    {
+    }
     public class TrackingAddress
     {
         public string Name;
@@ -24,6 +27,8 @@ namespace Svitlo.Component
         private System.Timers.Timer aTimer;
         private CancellationToken cancellationToken;
         private ListDictionary currentDicssonect;
+        private DataObjTelegram dataObjTelegram;
+        private TelegramAPI telegramAPI;
         NotifyIcon notifyIcon;
         public TrackingAddress(ObjResidence obj)
         {
@@ -37,6 +42,8 @@ namespace Svitlo.Component
             notifyIcon.Icon = new Icon("molnia.ico");
             notifyIcon.Visible = true;
             dataLoderAPI = new DataLoderAPI();
+            dataObjTelegram = new DataObjTelegram();
+            telegramAPI = new TelegramAPI();
         }
         public void StartFollowing()
         {
@@ -52,10 +59,19 @@ namespace Svitlo.Component
                         if (currentDicssonect[currentTime.AddHours(1).ToString()] == "+")
                         {
                             notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через годину", ToolTipIcon.Info);
+                            if(dataObjTelegram.GetTelegram() != null)
+                            {
+                                telegramAPI.SendMessage(dataObjTelegram.GetTelegram().chatId, $"*{Name}* Відключення світла через годину");
+                            }
                         }
                         else
                         {
                             notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Можливе відключення світла через годину", ToolTipIcon.Info);
+                            if (dataObjTelegram.GetTelegram() != null)
+                            {
+                                telegramAPI.SendMessage(dataObjTelegram.GetTelegram().chatId, $"*{Name}* Можливе відключення світла через годину");
+                            }
+
                         }
                     }
                     else if (currentDicssonect[currentTime.AddMinutes(15).ToString()] == "+" || currentDicssonect[currentTime.AddMinutes(15).ToString()] == "+-")
@@ -63,10 +79,18 @@ namespace Svitlo.Component
                         if (currentDicssonect[currentTime.AddMinutes(15).ToString()] == "+")
                         {
                             notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через 15 хвилин", ToolTipIcon.Info);
+                            if (dataObjTelegram.GetTelegram() != null)
+                            {
+                                telegramAPI.SendMessage(dataObjTelegram.GetTelegram().chatId, $"*{Name}* Відключення світла через 15 хвилин");
+                            }
                         }
                         else
                         {
                             notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Можливе відключення світла через 15 хвилин", ToolTipIcon.Info);
+                            if (dataObjTelegram.GetTelegram() != null)
+                            {
+                                telegramAPI.SendMessage(dataObjTelegram.GetTelegram().chatId, $"*{Name}* Можливе Відключення світла 15 хвилин");
+                            }
                         }
                     }
                     else if (currentDicssonect[currentTime.AddMinutes(5).ToString()] == "+" || currentDicssonect[currentTime.AddMinutes(5).ToString()] == "+-")
@@ -74,10 +98,19 @@ namespace Svitlo.Component
                         if (currentDicssonect[currentTime.AddMinutes(5).ToString()] == "+")
                         {
                             notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Відключення світла через 5 хвилин", ToolTipIcon.Info);
+                            if (dataObjTelegram.GetTelegram() != null)
+                            {
+                                telegramAPI.SendMessage(dataObjTelegram.GetTelegram().chatId, $"*{Name}* Відключення світла через 5 хвилин");
+                            }
                         }
                         else
                         {
                             notifyIcon.ShowBalloonTip(2000, $"Svitlo ({followingObject.Name})", "Можливе відключення світла через 5 хвилин", ToolTipIcon.Info);
+                            if (dataObjTelegram.GetTelegram() != null)
+                            {
+                                telegramAPI.SendMessage(dataObjTelegram.GetTelegram().chatId, $"*{Name}* Можливе відключення світла через 5 хвилин");
+                            }
+
                         }
                     }
                     //MessageBox.Show("Update");

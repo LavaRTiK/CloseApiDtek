@@ -8,8 +8,12 @@ namespace Svitlo.Component
 {
     internal class TelegramAPI
     {
-        public async Task SendMessage(long id,string message)
+        public async Task SendMessage(long ?id,string message)
         {
+            if(id == null)
+            {
+                return;
+            }
             HttpClient httpClient = new HttpClient();
             try
             {

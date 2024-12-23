@@ -13,11 +13,11 @@ namespace Svitlo.Component
         private static TelegramObj telegramObj = new TelegramObj();
         public async Task ReadDataAsync()
         {
-            if (!File.Exists("telegram.txt"))
+            if (!File.Exists("telegram.json"))
             {
-                File.Create("telegram.txt").Close();
+                File.Create("telegram.json").Close();
             }
-            using (StreamReader sr = new StreamReader("telegram.txt"))
+            using (StreamReader sr = new StreamReader("telegram.json"))
             {
                 MessageBox.Show(telegramObj.chatId.ToString());
                 string data = await sr.ReadToEndAsync();
@@ -40,11 +40,11 @@ namespace Svitlo.Component
         }
         public async Task LoadDataAsync()
         {
-            if (!File.Exists("telegram.txt"))
+            if (!File.Exists("telegram.json"))
             {
-                File.Create("telegram.txt").Close();
+                File.Create("telegram.json").Close();
             }
-            using (StreamWriter sw = new StreamWriter("telegram.txt"))
+            using (StreamWriter sw = new StreamWriter("telegram.json"))
             {
                 var options = new JsonSerializerOptions()
                 {

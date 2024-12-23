@@ -16,11 +16,11 @@ namespace Svitlo.Component
         public async Task ReadDataAsync()
         {
             //Выгрузка с save.txt
-            if (!File.Exists("save.txt"))
+            if (!File.Exists("save.json"))
             {
-                File.Create("save.txt").Close();
+                File.Create("save.json").Close();
             }
-            using (StreamReader sr = new StreamReader("save.txt"))
+            using (StreamReader sr = new StreamReader("save.json"))
             {
                 string data = await sr.ReadToEndAsync();
                 if(!string.IsNullOrWhiteSpace(data))
@@ -45,11 +45,11 @@ namespace Svitlo.Component
         public async Task LoadDataAsync()
         {
             //Запись в save.txt
-            if (!File.Exists("save.txt"))
+            if (!File.Exists("save.json"))
             {
-                File.Create("save.txt").Close();
+                File.Create("save.json").Close();
             }
-            using (StreamWriter sw = new StreamWriter("save.txt"))
+            using (StreamWriter sw = new StreamWriter("save.json"))
             {
                 var options = new JsonSerializerOptions()
                 {
