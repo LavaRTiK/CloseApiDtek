@@ -36,7 +36,8 @@ using System.Reflection;
   сделать грид на пару дней в перед переписования сheck (сделать в последню очередь) //ok
   доделать возможное отключения света //ok
   DataObj Residence & telegram сделать вмести сохранения;
-  Оповещения в телеграм 
+  Оповещения в телеграм //ok
+ 
   grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
  */
 namespace Svitlo
