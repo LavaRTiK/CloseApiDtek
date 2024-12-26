@@ -8,6 +8,7 @@ namespace Svitlo.Component
 {
     internal class TelegramAPI
     {
+        private readonly static string TelegramUrl = "https://closeapidtek-production.up.railway.app/api/FromToTelegram";
         public async Task SendMessage(long ?id,string message)
         {
             if(id == null)
@@ -17,7 +18,7 @@ namespace Svitlo.Component
             HttpClient httpClient = new HttpClient();
             try
             {
-                using HttpResponseMessage responsse = await httpClient.PostAsync($"https://localhost:7231/api/FromToTelegram?chatId={id}&message={message}", null);
+                using HttpResponseMessage responsse = await httpClient.PostAsync($"{TelegramUrl}?chatId={id}&message={message}", null);
                 responsse.EnsureSuccessStatusCode();
             }
             catch (Exception ex) {

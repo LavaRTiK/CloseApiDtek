@@ -4,7 +4,6 @@ using System.Text;
 using Telegram.Bot;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 var botToken = builder.Configuration["TelegramBot:Token"];
 if (string.IsNullOrWhiteSpace(botToken))
