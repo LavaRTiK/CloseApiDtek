@@ -7,6 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var botToken = builder.Configuration["TelegramBot:Token"];
+if (string.IsNullOrWhiteSpace(botToken))
+{
+    botToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
+    if (string.IsNullOrWhiteSpace(botToken))
+    {
+        throw new InvalidOperationException("Miss telegram bot token");
+    }
+}
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(botToken));
