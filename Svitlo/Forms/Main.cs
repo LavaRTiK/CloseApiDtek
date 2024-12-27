@@ -37,6 +37,7 @@ using System.Reflection;
   доделать возможное отключения света //ok
   DataObj Residence & telegram сделать вмести сохранения;
   Оповещения в телеграм //ok
+  Update dataloder api 
  
   grid сделать по красивые переделать RealTaiizor  FC_UI  toolkit
  */
@@ -218,7 +219,8 @@ namespace Svitlo
                 //cобщения
                 //Console.WriteLine();
             }
-            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day' or @class='disconnection-detailed-table-cell cell  no_disconnection other_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 other_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 other_day']");
+            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  hour_cell current_day' or @class='disconnection-detailed-table-cell cell  hour_cell other_day']");
+            //old var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day' or @class='disconnection-detailed-table-cell cell  no_disconnection other_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 other_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 other_day']");;
             if (tableNode == null)
             {
                 return;
@@ -231,26 +233,34 @@ namespace Svitlo
                 {
                     for (int i = 0; i < 24; i++)
                     {
-                        if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
-                        {
-                            //dataGridViewTest.Rows[r].Cells[i].Value = "-";
-                        }
-                        else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
-                        {
-                            dataGridViewTest.Rows[r].Cells[i].Value = "+";
-                        }
-                        else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 other_day")
-                        {
-                            dataGridViewTest.Rows[r].Cells[i].Value = "+";
-                        }
-                        else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection other_day")
-                        {
-                            //dataGridViewTest.Rows[r].Cells[i].Value = "-";
-                        }
-                        else
+                        if (tableNode[counterTabel].SelectSingleNode(".//div[@class='hour_block has_disconnection confirm_0']") != null)
                         {
                             dataGridViewTest.Rows[r].Cells[i].Value = "+-";
                         }
+                        else if (tableNode[counterTabel].SelectSingleNode(".//div[@class='hour_block has_disconnection confirm_1']") != null)
+                        {
+                            dataGridViewTest.Rows[r].Cells[i].Value = "+";
+                        }
+                        //if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
+                        //{
+                        //    //dataGridViewTest.Rows[r].Cells[i].Value = "-";
+                        //}
+                        //else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
+                        //{
+                        //    dataGridViewTest.Rows[r].Cells[i].Value = "+";
+                        //}
+                        //else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 other_day")
+                        //{
+                        //    dataGridViewTest.Rows[r].Cells[i].Value = "+";
+                        //}
+                        //else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection other_day")
+                        //{
+                        //    //dataGridViewTest.Rows[r].Cells[i].Value = "-";
+                        //}
+                        //else
+                        //{
+                        //    dataGridViewTest.Rows[r].Cells[i].Value = "+-";
+                        //}
                         counterTabel++;
 
                     }

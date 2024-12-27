@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using IWshRuntimeLibrary;
@@ -18,7 +19,7 @@ namespace Svitlo.Component
             string shortcutPath = Path.Combine(systemStartUp, "Svitlo.lnk");
             string iconPath = "molnia.ico";
             string targetPath = Application.ExecutablePath;
-            string workingDirictory = Path.GetDirectoryName(targetPath); 
+            string workingDirictory = Path.GetDirectoryName(targetPath);
             WshShell wshShell = new WshShell();
             IWshShortcut shortcut = wshShell.CreateShortcut(shortcutPath);
             shortcut.TargetPath = targetPath;

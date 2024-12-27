@@ -159,23 +159,24 @@ namespace Svitlo.Component
         {
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(obj);
-            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day']");
+            //var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  no_disconnection current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day' or @class='disconnection-detailed-table-cell cell  has_disconnection confirm_0 current_day']");
+            var tableNode = htmlDocument.DocumentNode.SelectNodes("//div[@class='disconnection-detailed-table-cell cell  hour_cell current_day']");
             TimeOnly time = new TimeOnly(00, 00);
             ListDictionary temp = new ListDictionary();
             //currentDicssonect.Clear() ;
             for (int i = 0; i < tableNode.Count; i++)
             {
-                if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
+                if (tableNode[i].SelectSingleNode(".//div[@class='hour_block has_disconnection confirm_0']") != null)
                 {
-                    temp.Add(time.ToString("HH:mm"), "-");
+                    temp.Add(time.ToString("HH:mm"), "+-");
                 }
-                else if (tableNode[i].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
+                else if (tableNode[i].SelectSingleNode(".//div[@class='hour_block has_disconnection confirm_1']") != null)
                 {
                     temp.Add(time.ToString("HH:mm"), "+");
                 }
                 else
                 {
-                    temp.Add(time.ToString("HH:mm"), "+-");
+                    temp.Add(time.ToString("HH:mm"), "-");
                 }
                 time = time.AddHours(1);
             }
