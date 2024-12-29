@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             readCity = new ComboBox();
             labelCity = new Label();
             errorReadCity = new ErrorProvider(components);
@@ -288,14 +289,22 @@
             dataGridViewTest.AllowUserToDeleteRows = false;
             dataGridViewTest.BackgroundColor = SystemColors.Control;
             dataGridViewTest.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewTest.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewTest.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewTest.Location = new Point(12, 141);
             dataGridViewTest.Name = "dataGridViewTest";
-            dataGridViewTest.Size = new Size(776, 221);
+            dataGridViewTest.Size = new Size(776, 216);
             dataGridViewTest.TabIndex = 21;
             dataGridViewTest.CellPainting += DataGridView_CellPainting;
             // 
-            // Form1
+            // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -320,7 +329,7 @@
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "Form1";
+            Name = "Main";
             Text = "Form1";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;

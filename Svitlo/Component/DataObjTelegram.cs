@@ -19,7 +19,7 @@ namespace Svitlo.Component
             }
             using (StreamReader sr = new StreamReader("telegram.json"))
             {
-                MessageBox.Show(telegramObj.chatId.ToString());
+                //MessageBox.Show(telegramObj.chatId.ToString());
                 string data = await sr.ReadToEndAsync();
                 if (!string.IsNullOrWhiteSpace(data))
                 {

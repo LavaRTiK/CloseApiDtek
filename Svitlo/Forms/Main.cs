@@ -242,8 +242,7 @@ namespace Svitlo
                             dataGridViewTest.Rows[r].Cells[i].Value = "+";
                         }
                         //if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  no_disconnection current_day")
-                        //{
-                        //    //dataGridViewTest.Rows[r].Cells[i].Value = "-";
+                        //{69=                         //    //dataGridViewTest.Rows[r].Cells[i].Value = "-";
                         //}
                         //else if (tableNode[counterTabel].Attributes[0].Value == "disconnection-detailed-table-cell cell  has_disconnection confirm_1 current_day")
                         //{
@@ -559,9 +558,10 @@ namespace Svitlo
             dataGridViewTest.ColumnHeadersHeight = 60;
             for (int i = 0; i < 24; i++)
             {
-                string header = $"{i:00}:00";
+                string header = $"{i:00}";
                 dataGridViewTest.Columns.Add($"Col{i}", header);
-                dataGridViewTest.Columns[i].Width = 50;
+                dataGridViewTest.Columns[i].Width = 28;
+                dataGridViewTest.Columns[i].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             }
             DateTime currentData = DateTime.Now;
             string[] days = new string[7];
@@ -597,7 +597,6 @@ namespace Svitlo
                 dataGridViewTest.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Properties.Resources.table_molnia_maybe;
                 e.Handled = true;
             }
-
             //}
             //non 
             //if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
