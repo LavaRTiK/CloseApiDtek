@@ -226,6 +226,9 @@ namespace Svitlo
                 return;
             }
             //test newgrid
+            dataGridViewTest.Rows.Clear();
+            dataGridViewTest.Columns.Clear();
+            DrawTable();
             int counterTabel = 0;
             try
             {
