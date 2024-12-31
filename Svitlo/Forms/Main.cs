@@ -67,6 +67,7 @@ namespace Svitlo
         private List<ObjResidence> dataResidencesList;
         private async void Form1_Load(object sender, EventArgs e)
         {
+            button4.Visible = false;
             notifyIcon1.BalloonTipText = "Svitlo звернуто";
             notifyIcon1.Text = "Svitlo";
             CancelSave.Visible = false;
