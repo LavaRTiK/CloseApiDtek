@@ -330,7 +330,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Main";
-            Text = "Form1";
+            Text = "Svitlo";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             Resize += Form1_Resize;
